@@ -9,7 +9,11 @@ const useMessageCollection = () => {
   const initialMsg = {
     id: 1,
     createdAt: Date.now(),
-    text: 'Hello! How can I help you today?',
+    text: `
+      // Example JavaScript code
+      const greeting = 'Hello, world!';
+      console.log(greeting);
+    `,
     ai: true
   }
   const [messages, setMessages] = useState([initialMsg]);
