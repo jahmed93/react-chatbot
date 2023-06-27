@@ -47,6 +47,7 @@ const ChatView = () => {
    */
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (!formValue) return;
 
     const cleanPrompt = formValue;
 
