@@ -44,9 +44,9 @@ const SideBar = () => {
         </h1>
         <div className={`sidebar__btn-close`} onClick={() => setOpen(!open)}>
           {open ? (
-            <MdChevronLeft className='sidebar__btn-icon' />
+            <MdChevronLeft className='text-slate-700 sidebar__btn-icon' />
           ) : (
-            <MdChevronRight className='sidebar__btn-icon' />
+            <MdChevronRight className='text-slate-700 sidebar__btn-icon' />
           )}
         </div>
       </div>

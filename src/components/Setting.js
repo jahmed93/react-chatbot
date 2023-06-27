@@ -13,7 +13,7 @@ const Setting = ({ modalOpen, setModalOpen }) => {
   useEffect(() => {
     if (modalOpen) {
       setName(name);
-      setName(email);
+      setEmail(email);
     }
   }, [name, email, modalOpen]);
 
