@@ -32,16 +32,18 @@ const SideBar = () => {
   const clearChat = () => clearMessages();
 
   return (
-    <section className={` ${open ? 'w-64' : 'w-16'} sidebar`}>
+    <section className={` ${open ? 'w-screen lg:w-64' : 'w-16'} sidebar`}>
       <div className='sidebar__app-bar'>
-        <div className={`sidebar__app-logo ${!open && 'scale-0 hidden'}`}>
-          <span className='w-8 h-8'>
-            <img width="30" src={logo} alt='Logo' />
-          </span>
+        <div className='flex items-center'>
+          <div className={`sidebar__app-logo ${!open && 'scale-0 hidden'}`}>
+            <span className='w-8 h-8'>
+              <img width="30" src={logo} alt='Logo' />
+            </span>
+          </div>
+          <h1 className={`sidebar__app-title ${!open && 'scale-0 hidden'}`}>
+            SelectQuote
+          </h1>
         </div>
-        <h1 className={`sidebar__app-title ${!open && 'scale-0 hidden'}`}>
-          SelectQuote
-        </h1>
         <div className={`sidebar__btn-close`} onClick={() => setOpen(!open)}>
           {open ? (
             <MdChevronLeft className='text-slate-700 sidebar__btn-icon' />
