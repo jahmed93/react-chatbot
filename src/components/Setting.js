@@ -34,7 +34,7 @@ const Setting = ({ modalOpen, setModalOpen }) => {
         value={email}
         placeholder='Email'
         onChange={(e) => setEmail(e.target.value)}
-        type='password'
+        type='email'
         className='w-full max-w-xs input input-bordered bg-white text-slate-700'
       />
       <button className='w-full max-w-xs btn bg-blue-500 text-white border-none hover:bg-blue-500' onClick={() => setModalOpen(false)}>
