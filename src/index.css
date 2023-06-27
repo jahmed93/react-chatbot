@@ -96,7 +96,7 @@
 
   .chatview__textarea-message {
     @apply bg-light-white ml-0 sm:ml-2 dark:bg-light-grey text-xl h-16 sm:w-full grow max-h-[20rem] min-h-[4rem] p-2 
-    border-2 border-slate-400 dark:border-slate-500 overflow-y-hidden mx-2
+    border-2 border-slate-400 dark:border-slate-500 overflow-y-hidden mx-2 focus:outline-none
     resize-y rounded-xl;
   }
 
