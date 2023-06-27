@@ -1,7 +1,7 @@
 import React from 'react';
-import { MdComputer } from 'react-icons/md';
 import moment from 'moment';
 import person from '../assets/person.png';
+import logo from '../assets/logo.png';
 
 /**
  * A chat message component that displays a message with a timestamp and an icon.
@@ -33,7 +33,7 @@ const ChatMessage = (props) => {
         {ai ? (
           <div className='avatar'>
             <div className='w-8 border rounded-full'>
-              <MdComputer className='w-6 h-full mx-auto' />
+              <img width="30" src={logo} alt='Logo' />
             </div>
           </div>
         ) : (

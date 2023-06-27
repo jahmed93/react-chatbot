@@ -32,7 +32,7 @@ const SideBar = () => {
   const clearChat = () => clearMessages();
 
   return (
-    <section className={` ${open ? 'w-screen lg:w-64' : 'w-16'} sidebar`}>
+    <section className={` ${open ? 'w-screen lg:w-96' : 'w-16'} sidebar`}>
       <div className='sidebar__app-bar'>
         <div className='flex items-center'>
           <div className={`sidebar__app-logo ${!open && 'scale-0 hidden'}`}>

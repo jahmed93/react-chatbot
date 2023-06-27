@@ -60,10 +60,16 @@ const ChatView = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       // 👇 Get input value
       sendMessage(e);
+      inputRef.current.style.height = 'auto';
     }
+  };
+
+  const handleInput = (event) => {
+    event.target.style.height = 'auto';
+    event.target.style.height = event.target.scrollHeight + 'px';
   };
 
   /**
@@ -94,8 +100,10 @@ const ChatView = () => {
           <textarea
             ref={inputRef}
             className='chatview__textarea-message'
+            rows={1}
             value={formValue}
             onKeyDown={handleKeyDown}
+            onInput={handleInput}
             onChange={(e) => setFormValue(e.target.value)}
           />
           <button
