@@ -1,3 +1,4 @@
+import React from 'react';
 import { ChatContextProvider } from './context/chatContext';
 import SideBar from './components/SideBar';
 import ChatView from './components/ChatView';

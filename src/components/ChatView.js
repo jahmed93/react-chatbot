@@ -62,7 +62,7 @@ const ChatView = () => {
     setFormValue('');
     updateMessage(newMsg, false);
 
-    const response = "I am a bot. This feature will be coming soon.";
+    const response = 'I am a bot. This feature will be coming soon.';
     updateMessage(response, true);
   };
 
@@ -87,15 +87,15 @@ const ChatView = () => {
       const response = await fetch(api, {
         headers: {
           'x-api-key': `token ${secretKey}`,
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         body: JSON.stringify({
           data: {
             prompt: formValue.trim(),
             targetModel: 'chatgpt',
-          }
+          },
         }),
-        method: 'POST'
+        method: 'POST',
       });
       if (!response.ok) {
         throw new Error('Request failed');
@@ -109,12 +109,12 @@ const ChatView = () => {
       console.error(e);
       setLoading(false);
     }
-  }
+  };
 
   const handleUseClicked = (e) => {
     setFormValue(prompt);
     setModalPromptOpen(false);
-  }
+  };
 
   /**
    * Scrolls the chat area to the bottom when the messages array is updated.
@@ -133,7 +133,7 @@ const ChatView = () => {
   useEffect(() => {
     inputRef.current.style.height = 'auto';
     inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
-  }, [formValue])
+  }, [formValue]);
 
   return (
     <div className='chatview'>
@@ -155,28 +155,25 @@ const ChatView = () => {
             onChange={handleChange}
           />
           <div className='flex items-center'>
-            <button
-              type='submit'
-              className='chatview__btn-send'
-              disabled={!formValue}>
+            <button type='submit' className='chatview__btn-send' disabled={!formValue}>
               <MdSend size={30} />
             </button>
             <button
-              id="tooltip"
+              id='tooltip'
               type='button'
               className='chatview__btn-send'
               disabled={!formValue}
               onClick={updatePrompt}
             >
-              { loading ? <div className="loading-spinner" /> : <MdLightbulbOutline size={30} /> }
+              {loading ? <div className='loading-spinner' /> : <MdLightbulbOutline size={30} />}
             </button>
           </div>
         </div>
         <ReactTooltip
-          anchorId="tooltip"
-          place="top"
-          variant="dark"
-          content="Help me with this prompt!"
+          anchorId='tooltip'
+          place='top'
+          variant='dark'
+          content='Help me with this prompt!'
         />
       </form>
       <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>

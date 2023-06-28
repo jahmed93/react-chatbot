@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Modal = ({ title, children, modalOpen = false, setModalOpen }) => {
   return (
     <div>
@@ -12,7 +14,8 @@ const Modal = ({ title, children, modalOpen = false, setModalOpen }) => {
         <div className='relative modal-box bg-slate-100'>
           <label
             onClick={() => setModalOpen(!modalOpen)}
-            className='absolute cursor-pointer right-4 top-4'>
+            className='absolute cursor-pointer right-4 top-4'
+          >
             ✕
           </label>
           <h3 className='text-lg font-bold'>{title}</h3>

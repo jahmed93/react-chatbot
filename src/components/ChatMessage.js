@@ -16,26 +16,18 @@ const ChatMessage = (props) => {
   const { id, createdAt, text, ai = false } = props.message;
 
   return (
-    <div
-      key={id}
-      className={`${ai && 'bg-sky-100'} flex-row-reverse message px-10`}>
-
+    <div key={id} className={`${ai && 'bg-sky-100'} flex-row-reverse message px-10`}>
       <div className='message__wrapper'>
         <ReactMarkdown
-          className={`message__markdown text-left`}
-          children={text}
+          className={'message__markdown text-left'}
           remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
           components={{
             code({ node, inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || 'language-js');
               return !inline && match ? (
-                <SyntaxHighlighter
-                  children={String(children).replace(/\n$/, '')}
-                  style={oneDark}
-                  language={match[1]}
-                  PreTag='div'
-                  {...props}
-                />
+                <SyntaxHighlighter style={oneDark} language={match[1]} PreTag='div' {...props}>
+                  {String(children).replace(/\n$/, '')}
+                </SyntaxHighlighter>
               ) : (
                 <code className={className} {...props}>
                   {children}{' '}
@@ -43,25 +35,19 @@ const ChatMessage = (props) => {
               );
             },
           }}
-        />
+        >
+          {text}
+        </ReactMarkdown>
 
-        <div
-          className='text-left message__createdAt'>
-          {moment(createdAt).calendar()}
-        </div>
+        <div className='text-left message__createdAt'>{moment(createdAt).calendar()}</div>
       </div>
 
       <div className='message__pic'>
-      	<div className='avatar'>
+        <div className='avatar'>
           <div className='w-8 border rounded-full'>
-		        {ai ? (
-		          
-		              <img width="30" src={logo} alt='Logo' />
-		        ) : (
-		              <img src={person} alt='profile pic' />
-		        )}
-		      </div>
-		    </div>
+            {ai ? <img width='30' src={logo} alt='Logo' /> : <img src={person} alt='profile pic' />}
+          </div>
+        </div>
       </div>
     </div>
   );

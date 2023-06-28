@@ -18,10 +18,7 @@ const Setting = ({ modalOpen, setModalOpen }) => {
   }, [name, email, modalOpen]);
 
   return (
-    <form
-      onSubmit={saveKey}
-      className='flex flex-col items-center justify-center gap-2'>
-
+    <form onSubmit={saveKey} className='flex flex-col items-center justify-center gap-2'>
       <input
         value={name}
         placeholder='Name'
@@ -37,10 +34,13 @@ const Setting = ({ modalOpen, setModalOpen }) => {
         type='email'
         className='w-full max-w-xs input input-bordered bg-white text-slate-700'
       />
-      <button className='w-full max-w-xs btn bg-blue-500 text-white border-none hover:bg-blue-500' onClick={() => setModalOpen(false)}>
+      <button
+        className='w-full max-w-xs btn bg-blue-500 text-white border-none hover:bg-blue-500'
+        onClick={() => setModalOpen(false)}
+      >
         save to localStorage
       </button>
-      
+
       <p>{errorMsg}</p>
     </form>
   );
