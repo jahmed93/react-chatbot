@@ -28,43 +28,43 @@ const SideBar = () => {
 
   return (
     <section className={` ${open ? 'w-screen lg:w-96' : 'w-16'} sidebar`}>
-      <div className='sidebar__app-bar'>
-        <div className='flex items-center'>
+      <div className="sidebar__app-bar">
+        <div className="flex items-center">
           <div className={`sidebar__app-logo ${!open && 'scale-0 hidden'}`}>
-            <span className='w-8 h-8'>
-              <img width='30' src={logo} alt='Logo' />
+            <span className="w-8 h-8">
+              <img width="30" src={logo} alt="Logo" />
             </span>
           </div>
           <h1 className={`sidebar__app-title ${!open && 'scale-0 hidden'}`}>SelectQuote</h1>
         </div>
         <div className={'sidebar__btn-close'} onClick={() => setOpen(!open)}>
           {open ? (
-            <MdChevronLeft className='text-slate-700 sidebar__btn-icon' />
+            <MdChevronLeft className="text-slate-700 sidebar__btn-icon" />
           ) : (
-            <MdChevronRight className='text-slate-700 sidebar__btn-icon' />
+            <MdChevronRight className="text-slate-700 sidebar__btn-icon" />
           )}
         </div>
       </div>
-      <div className='nav'>
-        <span className='border nav__item border-neutral-600' onClick={clearChat}>
-          <div className='nav__icons'>
+      <div className="nav">
+        <span className="border nav__item border-neutral-600" onClick={clearChat}>
+          <div className="nav__icons">
             <MdAdd />
           </div>
           <h1 className={`${!open && 'hidden'}`}>New chat</h1>
         </span>
       </div>
 
-      <div className='nav__bottom'>
-        <div onClick={() => setModalOpen(true)} className='nav'>
-          <span htmlFor='setting-modal' className='nav__item'>
-            <div className='nav__icons'>
+      <div className="nav__bottom">
+        <div onClick={() => setModalOpen(true)} className="nav">
+          <span htmlFor="setting-modal" className="nav__item">
+            <div className="nav__icons">
               <MdOutlineSettings />
             </div>
             <h1 className={`${!open && 'hidden'}`}>Settings</h1>
           </span>
         </div>
       </div>
-      <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
       </Modal>
     </section>

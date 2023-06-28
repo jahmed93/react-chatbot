@@ -136,50 +136,50 @@ const ChatView = () => {
   }, [formValue]);
 
   return (
-    <div className='chatview'>
-      <main className='chatview__chatarea'>
+    <div className="chatview">
+      <main className="chatview__chatarea">
         {messages.map((message, index) => (
           <ChatMessage key={index} message={{ ...message }} />
         ))}
 
         <span ref={messagesEndRef}></span>
       </main>
-      <form className='form' onSubmit={sendMessage}>
-        <div className='flex items-stretch justify-between w-full'>
+      <form className="form" onSubmit={sendMessage}>
+        <div className="flex items-stretch justify-between w-full">
           <textarea
             ref={inputRef}
-            className='chatview__textarea-message'
+            className="chatview__textarea-message"
             rows={1}
             value={formValue}
             onKeyDown={handleKeyDown}
             onChange={handleChange}
           />
-          <div className='flex items-center'>
-            <button type='submit' className='chatview__btn-send' disabled={!formValue}>
+          <div className="flex items-center">
+            <button type="submit" className="chatview__btn-send" disabled={!formValue}>
               <MdSend size={30} />
             </button>
             <button
-              id='tooltip'
-              type='button'
-              className='chatview__btn-send'
+              id="tooltip"
+              type="button"
+              className="chatview__btn-send"
               disabled={!formValue}
               onClick={updatePrompt}
             >
-              {loading ? <div className='loading-spinner' /> : <MdLightbulbOutline size={30} />}
+              {loading ? <div className="loading-spinner" /> : <MdLightbulbOutline size={30} />}
             </button>
           </div>
         </div>
         <ReactTooltip
-          anchorId='tooltip'
-          place='top'
-          variant='dark'
-          content='Help me with this prompt!'
+          anchorId="tooltip"
+          place="top"
+          variant="dark"
+          content="Help me with this prompt!"
         />
       </form>
-      <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
       </Modal>
-      <Modal title='Prompt Perfect' modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>
+      <Modal title="Prompt Perfect" modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>
         <PromptPerfect
           prompt={prompt}
           onChange={setPrompt}
