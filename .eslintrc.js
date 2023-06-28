@@ -41,14 +41,14 @@ module.exports = {
     'no-useless-escape': 'warn',
     'standard/computed-property-even-spacing': 'off',
     'react/display-name': 'off',
-    'react/no-array-index-key': 'warn',
+    'react/no-array-index-key': 'off',
     'react/no-danger': 'warn',
     'react/no-find-dom-node': 'warn',
     'react/no-multi-comp': 'off',
     'react/prefer-es6-class': 'warn',
     'react/prefer-stateless-function': 'warn',
     'react/sort-comp': 'off',
-    'react/prop-types': [1, { ignore: ['className', 't'] }],
+    'react/prop-types': 0,
   },
   overrides: [
     {

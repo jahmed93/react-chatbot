@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Setting = ({ prompt, setModalOpen, onChange, onCancelClicked, onUseClicked }) => {
+const Setting = ({ prompt, onChange, onCancelClicked, onUseClicked }) => {
   return (
     <div className='flex flex-col items-center justify-center gap-2'>
       <textarea

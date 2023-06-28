@@ -111,7 +111,7 @@ const ChatView = () => {
     }
   };
 
-  const handleUseClicked = (e) => {
+  const handleUseClicked = () => {
     setFormValue(prompt);
     setModalPromptOpen(false);
   };
@@ -182,7 +182,6 @@ const ChatView = () => {
       <Modal title='Prompt Perfect' modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>
         <PromptPerfect
           prompt={prompt}
-          setModalOpen={setModalPromptOpen}
           onChange={setPrompt}
           onCancelClicked={() => setModalPromptOpen(false)}
           onUseClicked={handleUseClicked}
