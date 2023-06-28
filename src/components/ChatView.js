@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import ChatMessage from './ChatMessage';
 import { ChatContext } from '../context/chatContext';
-import { MdSend } from 'react-icons/md';
+import { MdSend, MdLightbulbOutline } from 'react-icons/md';
+import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import Modal from './Modal';
 import Setting from './Setting';
+import PromptPerfect from './PromptPerfect';
 
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
@@ -12,8 +15,11 @@ const ChatView = () => {
   const messagesEndRef = useRef();
   const inputRef = useRef();
   const [formValue, setFormValue] = useState('');
+  const [prompt, setPrompt] = useState('');
+  const [loading, setLoading] = useState(false);
   const [messages, addMessage] = useContext(ChatContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalPromptOpen, setModalPromptOpen] = useState(false);
 
   /**
    * Scrolls the chat area to the bottom.
@@ -68,10 +74,47 @@ const ChatView = () => {
     }
   };
 
-  const handleInput = (event) => {
-    event.target.style.height = 'auto';
-    event.target.style.height = event.target.scrollHeight + 'px';
+  const handleChange = (event) => {
+    setFormValue(event.target.value);
   };
+
+  const updatePrompt = async () => {
+    const api = 'https://us-central1-prompt-ops.cloudfunctions.net/optimize';
+    const secretKey = process.env.REACT_APP_API_KEY;
+
+    try {
+      setLoading(true);
+      const response = await fetch(api, {
+        headers: {
+          'x-api-key': `token ${secretKey}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          data: {
+            prompt: formValue.trim(),
+            targetModel: 'chatgpt',
+          }
+        }),
+        method: 'POST'
+      });
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const responseData = await response.json();
+      setPrompt(responseData.result.promptOptimized);
+      setLoading(false);
+      setModalPromptOpen(true);
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+    }
+  }
+
+  const handleUseClicked = (e) => {
+    setFormValue(prompt);
+    setModalPromptOpen(false);
+  }
 
   /**
    * Scrolls the chat area to the bottom when the messages array is updated.
@@ -86,6 +129,11 @@ const ChatView = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  useEffect(() => {
+    inputRef.current.style.height = 'auto';
+    inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
+  }, [formValue])
 
   return (
     <div className='chatview'>
@@ -104,19 +152,44 @@ const ChatView = () => {
             rows={1}
             value={formValue}
             onKeyDown={handleKeyDown}
-            onInput={handleInput}
-            onChange={(e) => setFormValue(e.target.value)}
+            onChange={handleChange}
           />
-          <button
-            type='submit'
-            className='chatview__btn-send'
-            disabled={!formValue}>
-            <MdSend size={30} />
-          </button>
+          <div className='flex items-center'>
+            <button
+              type='submit'
+              className='chatview__btn-send'
+              disabled={!formValue}>
+              <MdSend size={30} />
+            </button>
+            <button
+              id="tooltip"
+              type='button'
+              className='chatview__btn-send'
+              disabled={!formValue}
+              onClick={updatePrompt}
+            >
+              { loading ? <div className="loading-spinner" /> : <MdLightbulbOutline size={30} /> }
+            </button>
+          </div>
         </div>
+        <ReactTooltip
+          anchorId="tooltip"
+          place="top"
+          variant="dark"
+          content="Help me with this prompt!"
+        />
       </form>
       <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      </Modal>
+      <Modal title='Prompt Perfect' modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>
+        <PromptPerfect
+          prompt={prompt}
+          setModalOpen={setModalPromptOpen}
+          onChange={setPrompt}
+          onCancelClicked={() => setModalPromptOpen(false)}
+          onUseClicked={handleUseClicked}
+        />
       </Modal>
     </div>
   );

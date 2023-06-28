@@ -95,16 +95,17 @@
   }
 
   .chatview__textarea-message {
-    @apply bg-light-white ml-0 sm:ml-2 dark:bg-light-grey sm:w-full grow p-2 
+    @apply bg-light-white ml-0 sm:ml-2 dark:bg-light-grey sm:w-full grow p-2 w-full
     border-2 border-slate-400 dark:border-slate-500 overflow-y-hidden mx-2 focus:outline-none
     resize-y rounded-xl;
   }
 
   .chatview__btn-send {
-    @apply h-16 w-16 px-4 rounded-full hover:bg-slate-200 hover:dark:bg-dark-grey border-2 border-slate-400
+    @apply h-16 w-16 px-4 mx-2 rounded-full cursor-pointer hover:bg-slate-200 hover:dark:bg-dark-grey border-2 border-slate-400
     dark:border-slate-500 focus:ring-offset-indigo-200 text-black dark:text-white transition 
-    ease-in-out duration-300 text-center text-base font-semibold shadow-md 
-    focus:outline-none focus:ring-2 focus:ring-offset-2;
+    ease-in-out duration-300 text-center text-base font-semibold shadow-md
+    flex items-center justify-center
+    focus:outline-none focus:ring-0 focus:ring-offset-0;
   }
 
   .chatview__btn-send:disabled {
@@ -156,6 +157,23 @@
 
   .signin__tos {
     @apply text-white text-center font-bold p-2;
+  }
+
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #383636; /* Black */
+    border-radius: 50%;
+    animation: spinner 1.5s linear infinite;
   }
 }
 
