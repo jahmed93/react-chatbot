@@ -49,7 +49,7 @@ const ChatView = () => {
     e.preventDefault();
     if (!formValue) return;
 
-    const cleanPrompt = formValue;
+    const cleanPrompt = formValue.trim();
 
     const newMsg = cleanPrompt;
 
