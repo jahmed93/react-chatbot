@@ -35,7 +35,7 @@ const SideBar = () => {
               <img width="30" src={logo} alt="Logo" />
             </span>
           </div>
-          <h1 className={`sidebar__app-title ${!open && 'scale-0 hidden'}`}>SelectQuote</h1>
+          <h1 className={`sidebar__app-title ${!open && 'scale-0 hidden'}`}>EthChatBot</h1>
         </div>
         <div className={'sidebar__btn-close'} onClick={() => setOpen(!open)}>
           {open ? (

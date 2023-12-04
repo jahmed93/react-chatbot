@@ -15,6 +15,7 @@
   /* SideBar */
   .sidebar {
     @apply flex flex-col gap-y-4 h-screen bg-slate-50 p-2 pt-4 relative duration-300;
+    background-color: #160040;
   }
 
   .sidebar__app-bar {
@@ -23,6 +24,7 @@
 
   .sidebar__app-title {
     @apply text-slate-800 font-medium text-xl duration-300;
+    color: white;
   }
 
   .sidebar__btn-close {
@@ -40,6 +42,7 @@
   /* SideBar Nav */
   .nav {
     @apply flex justify-around;
+    color: white;
   }
 
   .nav__item {
@@ -47,11 +50,13 @@
     rounded-md cursor-pointer 
     hover:bg-light-white
     text-slate-700 text-base;
+    color: white;
   }
 
   .nav__icons {
     @apply cursor-pointer duration-300 text-slate-700
     text-xl;
+    color: white;
   }
 
   .nav__bottom {
@@ -74,11 +79,14 @@
 
   .chatview__chatarea {
     @apply flex-grow w-full overflow-y-scroll flex flex-col shadow-md;
+    background-color: #b3b3b3;
   }
 
   .form {
-    @apply flex justify-between flex-col items-stretch sm:flex-row m-2 bottom-0 left-0 right-0
+    @apply flex justify-between flex-col items-stretch sm:flex-row
     text-black dark:text-white duration-300;
+    padding: 2px;
+    background-color: #A31ACB;
   }
 
   .dropdown {
@@ -98,6 +106,7 @@
     @apply bg-light-white ml-0 sm:ml-2 dark:bg-light-grey sm:w-full grow p-2 w-full
     border-2 border-slate-400 dark:border-slate-500 overflow-y-hidden mx-2 focus:outline-none
     resize-y rounded-xl;
+    margin-top: 2px;
   }
 
   .chatview__btn-send {
@@ -113,21 +122,32 @@
   }
 
   /* ChatMessage */
+
   .message {
     @apply py-5 gap-2 flex items-start justify-end;
+    width: 100%;
+    background-color: #8879B0;
+  }
+  .messageai {
+    @apply py-5 gap-2 flex items-start justify-end;
+    width: 100%;
+    background-color: #9F73AB;
   }
 
   .message__wrapper {
     @apply flex-grow w-screen flex-wrap overflow-hidden;
+    /* background-color: #4C0070; */
   }
 
   .message__markdown {
     @apply text-sm text-slate-700 whitespace-pre-wrap dark:text-slate-200;
+    color: white;
   }
 
   .message__createdAt {
     font-size: 10px;
     @apply font-thin italic text-slate-600 dark:text-slate-300;
+    color: white
   }
 
   .message__pic {

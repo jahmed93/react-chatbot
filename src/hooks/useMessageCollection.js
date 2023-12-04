@@ -7,14 +7,10 @@ import { useState } from 'react';
  */
 const useMessageCollection = () => {
   const initialMsg = {
-    id: 1,
-    createdAt: Date.now(),
-    text: `
-      // Example JavaScript code
-      const greeting = 'Hello, world!';
-      console.log(greeting);
-    `,
+    id: 696969,
     ai: true,
+    text: 'Hello, I am the AI chatbot. How can I help you?',
+    timestamp: new Date(),
   };
   const [messages, setMessages] = useState([initialMsg]);
 
