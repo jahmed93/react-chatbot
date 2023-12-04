@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
+    "axios": "^1.6.2",
     "bad-words": "^3.0.4",
     "daisyui": "^2.51.6",
     "moment": "^2.29.4",

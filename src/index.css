@@ -86,7 +86,7 @@
     @apply flex justify-between flex-col items-stretch sm:flex-row
     text-black dark:text-white duration-300;
     padding: 2px;
-    background-color: #A31ACB;
+    background-color: #160040;
   }
 
   .dropdown {
@@ -107,6 +107,7 @@
     border-2 border-slate-400 dark:border-slate-500 overflow-y-hidden mx-2 focus:outline-none
     resize-y rounded-xl;
     margin-top: 2px;
+    color:white;
   }
 
   .chatview__btn-send {
@@ -126,12 +127,12 @@
   .message {
     @apply py-5 gap-2 flex items-start justify-end;
     width: 100%;
-    background-color: #8879B0;
+    background-color: #2A2438;
   }
   .messageai {
     @apply py-5 gap-2 flex items-start justify-end;
     width: 100%;
-    background-color: #9F73AB;
+    background-color: #352F44;
   }
 
   .message__wrapper {
