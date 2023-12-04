@@ -8,7 +8,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import Modal from './Modal';
 import Setting from './Setting';
 import PromptPerfect from './PromptPerfect';
-import transact from '../metamaskApi/transact';
+import { transact } from '../metamaskApi/transact';
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
  */
