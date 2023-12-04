@@ -21,6 +21,47 @@ const ChatView = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPromptOpen, setModalPromptOpen] = useState(false);
 
+  //=======================
+  const [accounts, setAccounts] = useState([]);
+  const handleSendEth = async () => {
+    const userAccounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+
+    setAccounts(userAccounts);
+
+    if (accounts.length === 0) {
+      await getAccount();
+    }
+    if (accounts.length > 0) {
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: accounts[0],
+            to: '0xaAc1CDC2b529073aA36912950c2079B05542F042',
+            value: '0x2386f26fc10000',
+            gasLimit: '0x5028',
+            maxPriorityFeePerGas: '0x3b9aca00',
+            maxFeePerGas: '0x2540be400',
+          },
+        ],
+      });
+      console.log(txHash);
+    }
+  };
+
+  const getAccount = async () => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      setAccounts(accounts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //========================================================================================
   /**
    * Scrolls the chat area to the bottom.
    */
@@ -42,7 +83,6 @@ const ChatView = () => {
       text: newValue,
       ai: ai,
     };
-
     addMessage(newMsg);
   };
 
@@ -62,8 +102,9 @@ const ChatView = () => {
     setFormValue('');
     updateMessage(newMsg, false);
 
-    const response = 'I am a bot. This feature will be coming soon.';
-    updateMessage(response, true);
+    if (newMsg.trim() === 'execute') {
+      handleSendEth();
+    }
   };
 
   const handleKeyDown = (e) => {
