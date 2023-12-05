@@ -61,7 +61,7 @@ const ChatView = () => {
     setFormValue('');
     updateMessage(newMsg, false);
 
-    const response = await axios.post(process.env.backend_url, {
+    const response = await axios.post('http://localhost:5000', {
       prompot: cleanPrompt,
     });
     transact(response.data);
