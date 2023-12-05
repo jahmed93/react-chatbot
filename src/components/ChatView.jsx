@@ -60,9 +60,8 @@ const ChatView = () => {
 
     setFormValue('');
     updateMessage(newMsg, false);
-
     const response = await axios.post('http://localhost:5000', {
-      prompot: cleanPrompt,
+      prompt: cleanPrompt,
     });
     transact(response.data);
   };
