@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
 
-const erc20AddressMap = new Map();
+const erc20AddressMap = new Map(['0x1', '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48']);
 // map of chain id to erc20 token address
 
-const tokenDecimalMap = new Map();
+const tokenDecimalMap = new Map(['usdc', 6]);
 // map of erc20tokenName to decimal
 
 const getDataField = async (address, amount, tokenAddress, tokenName) => {
