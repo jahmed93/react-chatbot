@@ -63,7 +63,7 @@ const ChatView = () => {
     const response = await axios.post('http://localhost:5000', {
       prompt: cleanPrompt,
     });
-    transact(response.data);
+    transact(JSON.parse(response.data));
   };
 
   const handleKeyDown = (e) => {
