@@ -1,12 +1,6 @@
+import { chainMap } from '../utils/maps';
+
 export const changeChain = async (chainName) => {
-  const chainMap = new Map([
-    ['ethereum_mainnet', '0x1'],
-    ['sepolia', '0xaa36a7'],
-    ['goerli', '0x5'],
-    ['mumbai_testnet', '0x13881'],
-    ['scroll', '0x82750'],
-    ['arbitrum', '0xA4B1'],
-  ]);
   const getChainID = (chainName) => {
     const chain = chainName.toLowerCase();
     if (
