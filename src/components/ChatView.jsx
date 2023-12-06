@@ -63,7 +63,13 @@ const ChatView = () => {
     const response = await axios.post('http://localhost:5000', {
       prompt: cleanPrompt,
     });
-    transact(JSON.parse(response.data));
+    const res = JSON.parse(response.data);
+    if (typeof res === string) {
+      updateMessage(res, true);
+    } else {
+      updateMessage('Please follow the steps on the Metamask extension', true);
+      transact(res);
+    }
   };
 
   const handleKeyDown = (e) => {
