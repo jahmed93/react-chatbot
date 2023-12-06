@@ -12,3 +12,7 @@ export const hexNum = (amount) => {
   const hexAmount = (parseFloat(amount) * 1000000000000000000).toString(16);
   return hexAmount;
 };
+
+export const toBase = async (amount, n) => {
+  return (parseFloat(amount) * 10 ** n).toString();
+};

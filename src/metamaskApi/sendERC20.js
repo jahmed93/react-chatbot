@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 const { utils } = ethers;
 import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
+import { toBase } from '../utils/index';
 
 const getDataField = async (address, amount, tokenAddress, tokenName) => {
   const USDC_ABI = [
@@ -23,7 +24,7 @@ const getDataField = async (address, amount, tokenAddress, tokenName) => {
 
   const usdcContract = new ethers.Contract(tokenAddress, USDC_ABI, signer);
 
-  const amountInUSDC = utils.parseUnits(amount, tokenDecimalMap.get(tokenName.toLowerCase()));
+  const amountInUSDC = toBase(amount, tokenDecimalMap.get(tokenName.toLowerCase()));
 
   const dataFieldValue = usdcContract.interface.encodeFunctionData('transfer', [
     address,
