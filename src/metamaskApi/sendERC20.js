@@ -1,8 +1,9 @@
 import { ethers } from 'ethers';
-const { utils } = ethers;
 import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
 import { toBase } from '../utils/index';
+import detectEthereumProvider from '@metamask/detect-provider';
 
+var Accounts = [];
 const getDataField = async (address, amount, tokenAddress, tokenName) => {
   const USDC_ABI = [
     {
@@ -39,7 +40,6 @@ export const sendERC20Token = async (address, amount, tokenName) => {
     method: 'eth_chainId',
     params: [],
   });
-  var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });

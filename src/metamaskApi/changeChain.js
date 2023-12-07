@@ -1,5 +1,5 @@
 import { chainMap } from '../utils/maps';
-
+var Accounts = [];
 export const changeChain = async (chainName) => {
   const getChainID = (chainName) => {
     const chain = chainName.toLowerCase();
@@ -95,7 +95,6 @@ export const changeChain = async (chainName) => {
       return chainMap.get('arbitrum');
     }
   };
-  var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });

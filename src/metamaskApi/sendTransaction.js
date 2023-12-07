@@ -1,6 +1,6 @@
 import { hexNum } from '../utils/index';
+var Accounts = [];
 export const sendTransaction = async (address, amount) => {
-  var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
