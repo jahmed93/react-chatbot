@@ -13,7 +13,8 @@ export const erc20AddressMap = new Map([
 // map of chain id to erc20 token address
 
 export const tokenDecimalMap = new Map([
-  ['eth', 18][('usdc', 6)],
+  ['eth', 18],
+  ['usdc', 6],
   ['dai', 18],
   ['uni', 18],
   ['link', 18],
@@ -27,4 +28,97 @@ export const chainMap = new Map([
   ['mumbai_testnet', '0x13881'],
   ['scroll', '0x82750'],
   ['arbitrum', '0xA4B1'],
+]);
+
+export const chainsfor1inch = new Map([
+  [
+    '0xe708',
+    {
+      name: 'Linea',
+      chainId: 59144,
+      rpc: 'https://linea.drpc.org',
+    },
+  ],
+
+  [
+    '0x44d',
+    {
+      name: 'ZKEVM',
+      chainId: 1101,
+      rpc: 'https://polygon-zkevm.drpc.org',
+    },
+  ],
+  [
+    '0x1',
+    {
+      name: 'Ethereum',
+      chainId: 1,
+      rpc: 'https://eth.llamarpc.com',
+    },
+  ],
+  [
+    '0xaa36a7',
+    {
+      name: 'Sepolia',
+      chainId: 11155111,
+      rpc: 'https://1rpc.io/sepolia',
+    },
+  ],
+  [
+    '0xa4b1',
+    {
+      name: 'Arbitrum',
+      chainId: 42161,
+      rpc: 'https://1rpc.io/arb',
+    },
+  ],
+  [
+    '0x8274f',
+    {
+      name: 'Scroll Sepolia',
+      chainId: 534351,
+      rpc: 'https://sepolia-rpc.scroll.io',
+    },
+  ],
+  [
+    '0x1388',
+    {
+      name: 'Mantle',
+      chainId: 5000,
+      rpc: 'https://1rpc.io/mantle',
+    },
+  ],
+  [
+    '0x2105',
+    {
+      name: 'BASE',
+      chainId: 8453,
+      rpc: 'https://base.llamarpc.com',
+    },
+  ],
+  [
+    '0x32',
+    {
+      name: 'XDC Network',
+      chainId: 50,
+      rpc: 'https://rpc.ankr.com/xdc',
+    },
+  ],
+  // polygon
+  [
+    '0x89',
+    {
+      name: 'Polygon',
+      chainId: 137,
+      rpc: 'https://polygon-rpc.com',
+    },
+  ],
+  [
+    '0x64',
+    {
+      name: 'Gnosis Chain',
+      chainId: 100,
+      rpc: 'https://gnosis.drpc.org',
+    },
+  ],
 ]);

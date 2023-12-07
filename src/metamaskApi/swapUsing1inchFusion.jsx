@@ -18,7 +18,7 @@ const getTokenAddress = (chain, token) => {
   }
 };
 
-export const swapUsing1inch = async (amount, token1, token2) => {
+export const swapUsing1inchFusion = async (amount, token1, token2) => {
   const sdk = new MetaMaskSDK();
   const provider = sdk.getProvider();
   const chainId = await provider.request({
