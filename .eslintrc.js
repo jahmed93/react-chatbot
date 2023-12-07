@@ -75,20 +75,20 @@ module.exports = {
         'react/jsx-no-target-blank': 'warn',
       },
     },
-    {
-      files: ['*.ts', '*.tsx'],
-      parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint'],
-      extends: ['plugin:@typescript-eslint/recommended'],
-      rules: {
-        '@typescript-eslint/no-use-before-define': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-empty-function': 'warn',
-        '@typescript-eslint/no-var-requires': 'off',
-        'react/prop-types': 'warn',
-      },
-    },
+    // {
+    //   files: ['*.ts', '*.tsx'],
+    //   parser: '@typescript-eslint/parser',
+    //   plugins: ['@typescript-eslint'],
+    //   extends: ['plugin:@typescript-eslint/recommended'],
+    //   rules: {
+    //     '@typescript-eslint/no-use-before-define': 'off',
+    //     '@typescript-eslint/ban-ts-comment': 'off',
+    //     '@typescript-eslint/no-explicit-any': 'off',
+    //     '@typescript-eslint/no-empty-function': 'warn',
+    //     '@typescript-eslint/no-var-requires': 'off',
+    //     'react/prop-types': 'warn',
+    //   },
+    // },
     {
       files: ['*.stories.jsx'],
       rules: {

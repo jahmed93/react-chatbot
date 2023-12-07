@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
+    "@safe-global/api-kit": "^2.0.0",
+    "@safe-global/protocol-kit": "^2.0.0",
+    "@safe-global/safe-core-sdk-types": "^3.0.1",
     "axios": "^1.6.2",
     "bad-words": "^3.0.4",
     "daisyui": "^2.51.6",
@@ -27,7 +30,8 @@
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.16.1",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "web3": "^4.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
