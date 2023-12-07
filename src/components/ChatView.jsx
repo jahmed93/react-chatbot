@@ -9,6 +9,7 @@ import Modal from './Modal';
 import Setting from './Setting';
 import PromptPerfect from './PromptPerfect';
 import { transact } from '../metamaskApi/transact';
+import { swapUsing1inch } from '../metamaskApi/swap1inch';
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
  */
@@ -60,16 +61,17 @@ const ChatView = () => {
 
     setFormValue('');
     updateMessage(newMsg, false);
-    const response = await axios.post('http://localhost:5000', {
-      prompt: cleanPrompt,
-    });
-    const res = JSON.parse(response.data);
-    if (typeof res === string) {
-      updateMessage(res, true);
-    } else {
-      updateMessage('Please follow the steps on the Metamask extension', true);
-      transact(res);
-    }
+    // const response = await axios.post('http://localhost:5000', {
+    //   prompt: cleanPrompt,
+    // });
+    // const res = JSON.parse(response.data);
+    // if (typeof res === string) {
+    //   updateMessage(res, true);
+    // } else {
+    //   updateMessage('Please follow the steps on the Metamask extension', true);
+    //   transact(res);
+    // }
+    swapUsing1inch('.000001', 'usdc', 'eth');
   };
 
   const handleKeyDown = (e) => {

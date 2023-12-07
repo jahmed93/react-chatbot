@@ -1,4 +1,3 @@
-import { MetaMaskSDK } from '@metamask/sdk';
 import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
 import { toBase } from '../utils/index';
 import Web3 from 'web3';
@@ -20,22 +19,16 @@ const getTokenAddress = (chain, token) => {
 };
 
 export const swapUsing1inch = async (amount, token1, token2) => {
-  const sdk = new MetaMaskSDK();
-  const provider = sdk.getProvider();
-  const chainId = await provider.request({
+  const chainId = await window.ethereum.request({
     method: 'eth_chainId',
     params: [],
   });
   var account;
-  const connect = async () => {
-    try {
-      const accounts = await sdk.connect();
-      account = accounts[0];
-    } catch (err) {
-      console.warn(`failed to connect..`, err);
-    }
-  };
-  await connect();
+  const accounts = await window.ethereum.request({
+    method: 'eth_requestAccounts',
+    params: [],
+  });
+  account = accounts[0];
 
   const swapParams = {
     src: getTokenAddress(chainId, token1),
@@ -51,11 +44,11 @@ export const swapUsing1inch = async (amount, token1, token2) => {
     'https://api.1inch.dev/tx-gateway/v1.1/' + chainsfor1inch.get(chainId).chainId + '/broadcast';
   const apiBaseUrl = 'https://api.1inch.dev/swap/v5.2/' + chainsfor1inch.get(chainId).chainId;
   const web3 = new Web3(chainsfor1inch.get(chainId).rpc);
-  const headers = {
-    headers: new Headers({
-      Authorization: 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX',
-      accept: 'application/json',
-    }),
+  const header = new Headers();
+  header.append('Authorization', 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX');
+  header.append('Accept', 'application/json');
+  const reqinfo = {
+    headers: header,
   };
 
   // Construct full API request URL
@@ -68,10 +61,10 @@ export const swapUsing1inch = async (amount, token1, token2) => {
     return fetch(broadcastApiUrl, {
       method: 'post',
       body: JSON.stringify({ rawTransaction }),
-      headers: new Headers({
+      headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX',
-      }),
+      },
     })
       .then((res) => res.json())
       .then((res) => {
@@ -94,8 +87,7 @@ export const swapUsing1inch = async (amount, token1, token2) => {
       '/approve/transaction',
       amount ? { tokenAddress, amount } : { tokenAddress },
     );
-
-    const transaction = await fetch(url, headers).then((res) => res.json());
+    const transaction = await fetch(url, reqinfo).then((res) => res.json());
 
     const gasLimit = await web3.eth.estimateGas({
       ...transaction,
@@ -118,7 +110,7 @@ export const swapUsing1inch = async (amount, token1, token2) => {
     const url = apiRequestUrl('/swap', swapParams);
 
     // Fetch the swap transaction details from the API
-    return fetch(url, headers)
+    return fetch(url, reqinfo)
       .then((res) => res.json())
       .then((res) => res.tx);
   }

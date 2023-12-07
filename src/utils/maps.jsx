@@ -8,6 +8,11 @@ export const erc20AddressMap = new Map([
       uni: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
       link: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
     },
+    '0xaa36a7',
+    {
+      usdc: '0x8267cF9254734C6Eb452a7bb9AAF97B392258b21',
+      eth: '',
+    },
   ],
 ]);
 // map of chain id to erc20 token address
