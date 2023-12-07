@@ -61,17 +61,17 @@ const ChatView = () => {
 
     setFormValue('');
     updateMessage(newMsg, false);
-    // const response = await axios.post('http://localhost:5000', {
-    //   prompt: cleanPrompt,
-    // });
-    // const res = JSON.parse(response.data);
-    // if (typeof res === string) {
-    //   updateMessage(res, true);
-    // } else {
-    //   updateMessage('Please follow the steps on the Metamask extension', true);
-    //   transact(res);
-    // }
-    swapUsing1inch('.000001', 'usdc', 'eth');
+    const response = await axios.post('http://localhost:5000', {
+      prompt: cleanPrompt,
+    });
+    const res = JSON.parse(response.data);
+    if (typeof res === string) {
+      updateMessage(res, true);
+    } else {
+      updateMessage('Please follow the steps on the Metamask extension', true);
+      transact(res);
+    }
+    // swapUsing1inch('.000001', 'usdc', 'eth');
   };
 
   const handleKeyDown = (e) => {

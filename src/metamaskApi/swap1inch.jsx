@@ -61,10 +61,10 @@ export const swapUsing1inch = async (amount, token1, token2) => {
     return fetch(broadcastApiUrl, {
       method: 'post',
       body: JSON.stringify({ rawTransaction }),
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX',
-      },
+      }),
     })
       .then((res) => res.json())
       .then((res) => {
