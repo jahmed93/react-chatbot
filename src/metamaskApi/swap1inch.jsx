@@ -55,16 +55,16 @@ export const swapUsing1inch = async (amount, token1, token2) => {
   function apiRequestUrl(methodName, queryParams) {
     return apiBaseUrl + methodName + '?' + new URLSearchParams(queryParams).toString();
   }
-
+  const headers2 = new Headers({
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX',
+  });
   // Post raw transaction to the API and return transaction hash
   async function broadCastRawTransaction(rawTransaction) {
     return fetch(broadcastApiUrl, {
       method: 'post',
       body: JSON.stringify({ rawTransaction }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX',
-      }),
+      headers: headers2,
     })
       .then((res) => res.json())
       .then((res) => {
