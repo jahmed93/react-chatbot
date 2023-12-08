@@ -15,7 +15,7 @@
   /* SideBar */
   .sidebar {
     @apply flex flex-col gap-y-4 h-screen bg-slate-50 p-2 pt-4 relative duration-300;
-    background-color: #160040;
+    background-color: #050505e1;
   }
 
   .sidebar__app-bar {
@@ -79,14 +79,14 @@
 
   .chatview__chatarea {
     @apply flex-grow w-full overflow-y-scroll flex flex-col shadow-md;
-    background-color: #b3b3b3;
+    background-color: #050505e1;
   }
 
   .form {
     @apply flex justify-between flex-col items-stretch sm:flex-row
     text-black dark:text-white duration-300;
     padding: 2px;
-    background-color: #160040;
+    background-color: #050505e1;
   }
 
   .dropdown {
@@ -116,6 +116,7 @@
     ease-in-out duration-300 text-center text-base font-semibold shadow-md
     flex items-center justify-center
     focus:outline-none focus:ring-0 focus:ring-offset-0;
+    background-color: #595959;
   }
 
   .chatview__btn-send:disabled {
@@ -127,12 +128,12 @@
   .message {
     @apply py-5 gap-2 flex items-start justify-end;
     width: 100%;
-    background-color: #2A2438;
+    background-color: #C4C4C4;
   }
   .messageai {
     @apply py-5 gap-2 flex items-start justify-end;
     width: 100%;
-    background-color: #352F44;
+    background-color: #FFFFFFf0;
   }
 
   .message__wrapper {
@@ -142,13 +143,13 @@
 
   .message__markdown {
     @apply text-sm text-slate-700 whitespace-pre-wrap dark:text-slate-200;
-    color: white;
+    color: #050505e1;
   }
 
   .message__createdAt {
     font-size: 10px;
     @apply font-thin italic text-slate-600 dark:text-slate-300;
-    color: white
+    color: #050505e1
   }
 
   .message__pic {
