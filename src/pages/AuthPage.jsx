@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../style/AuthPage.css';
 import SignupComponent from '../components/SignUpForm';
+import VerifyLogin from '../components/VerifyLogin';
 
 const AuthPage = ({ isAuth, setIsAuth }) => {
   const [showSignupPopup, setShowSignupPopup] = useState(false);
@@ -58,13 +59,9 @@ const AuthPage = ({ isAuth, setIsAuth }) => {
             <div className="popup">
               {/* Login form content */}
 
-              <div className="loginForm"></div>
+              <VerifyLogin closeLoginPopup={closeLoginPopup} />
 
               {/* Login form content end */}
-
-              <button className="closeButton" onClick={closeLoginPopup}>
-                Close Login
-              </button>
             </div>
           )}
         </div>

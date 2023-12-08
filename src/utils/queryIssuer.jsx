@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:3002', // from env in future
+  baseURL: 'http://localhost:3002', // from env in future
   timeout: 5000,
   headers: {
     accept: 'application/json', // take from env in future
     authorization: 'Basic dXNlci1hcGk6cGFzc3dvcmQtYXBp', // take from env in future
+    'ngrok-skip-browser-warning': '69420',
   },
 });
 

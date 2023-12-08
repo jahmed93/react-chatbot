@@ -34,6 +34,7 @@ const SignupComponent = ({ closeSignupPopup }) => {
     if (isValidAdharno(adharNo) && isValidUri(identifier)) {
       console.log('valid');
       let listCredentials = null;
+      // let exists = false;
       try {
         // get the active Credentials to check already logged-in or not
         listCredentials = await fetchData('/v1/credentials', 'GET', null, {
@@ -45,12 +46,11 @@ const SignupComponent = ({ closeSignupPopup }) => {
         return;
       }
 
-      let exists = false;
-      listCredentials.forEach((e) => {
-        if (e['schemaUrl'] === credentialSchema && e['expired'] == false && e['revoked'] == false) {
-          exists = true;
-        }
-      });
+      // listCredentials.forEach((e) => {
+      //   if (e['schemaUrl'] === credentialSchema && e['expired'] == false && e['revoked'] == false) {
+      //     exists = true;
+      //   }
+      // });
 
       // if(exists) {
       //     // handle on exit
@@ -92,12 +92,15 @@ const SignupComponent = ({ closeSignupPopup }) => {
         return;
       }
 
+      console.log(QRResponse);
+
       if (!QRResponse['qrCodeLink']) {
         console.log('Failed to get QR');
         return;
       }
 
       console.log(QRResponse);
+      // QRResponse["qrCodeLink"] = "iden3comm://?request_uri=http%3A%2F%2F192.168.159.87:3002%2Fv1%2Fqr-store%3Fid%3De69f27de-7350-4b81-897a-a9326d88b36c"
       setJsonData(QRResponse);
     }
   };

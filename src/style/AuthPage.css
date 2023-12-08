@@ -107,5 +107,13 @@
 .qrcontainer {
   width: 30vw;
   height: 30vw;
+}
 
+#button {
+  margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: darkcyan;
+    color: #ffffff;
 }
