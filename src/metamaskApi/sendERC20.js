@@ -1,37 +1,26 @@
 import { ethers } from 'ethers';
-import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
-import { toBase } from '../utils/index';
-import detectEthereumProvider from '@metamask/detect-provider';
+import { web3 } from 'web3';
+import { erc20AddressMap } from '../utils/maps';
 
 var Accounts = [];
-const getDataField = async (address, amount, tokenAddress, tokenName) => {
-  const USDC_ABI = [
-    {
-      name: 'transfer',
-      type: 'function',
-      inputs: [
-        { name: 'to', type: 'address' },
-        { name: 'value', type: 'uint256' },
-      ],
-      outputs: [{ name: '', type: 'bool' }],
-    },
-  ];
-  const getProvider = async () => {
-    return await detectEthereumProvider({ silent: true, mustBeMetaMask: true });
-  };
-
-  const provider = getProvider();
-  const signer = provider.getSigner();
-
-  const usdcContract = new ethers.Contract(tokenAddress, USDC_ABI, signer);
-
-  const amountInUSDC = toBase(amount, tokenDecimalMap.get(tokenName.toLowerCase()));
-
-  const dataFieldValue = usdcContract.interface.encodeFunctionData('transfer', [
-    address,
-    amountInUSDC,
-  ]);
-
+const getDataField = async (address, amount) => {
+  // const USDC_ABI = [
+  //   {
+  //     name: 'transfer',
+  //     type: 'function',
+  //     inputs: [
+  //       { name: 'to', type: 'address' },
+  //       { name: 'value', type: 'uint256' },
+  //     ],
+  //     outputs: [{ name: '', type: 'bool' }],
+  //   },
+  // ];
+  var functionName="transfer(address,uint256)";
+  var hash = web3.utils.keccak256(functionName).slice(0, 10);
+  var types=["address","uint256"];
+  var functionArgs=[address,amount*10**18];
+  const data = ethers.utils.defaultAbiCoder.encode(types, functionArgs).slice(2);
+  const dataFieldValue = hash + data;
   return dataFieldValue;
 };
 
