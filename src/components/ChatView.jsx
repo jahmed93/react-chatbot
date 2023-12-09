@@ -82,17 +82,17 @@ const ChatView = () => {
           flow += `Step ${index + 1}: Send ${element.Args[0].Value} ${element.Args[2].Value} to ${
             element.Args[1].Value
           }\n`;
-        } else if (element.Tool === 'swapUsing1inch') {
+        } else if (element.Tool === 'swapCurrency') {
           flow += `Step ${index + 1}: Swap ${element.Args[0].Value} ${element.Args[1].Value} to ${
             element.Args[2].Value
           } using 1inch\n`;
-        } else if (element.Tool === 'gas1inch') {
+        } else if (element.Tool === 'getgasprice1inch') {
           flow += `Step ${index + 1}: Get gas price for ${
             element.Args[0].Value
           } chain using 1inch Gas Price Api\n`;
-        } else if (element.Tool === 'balance1inch') {
+        } else if (element.Tool === 'getBalance') {
           flow += `Step ${index + 1}: Get balance for ${element.Args[0].Value} chain using \n`;
-        } else if (element.Tool === 'price1inch') {
+        } else if (element.Tool === 'getprice') {
           flow += `Step ${index + 1}: Get price for ${element.Args[1].Value.join(',')} on ${
             element.Args[0].Value
           } chain\n`;
