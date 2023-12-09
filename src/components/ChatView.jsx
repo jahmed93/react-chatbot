@@ -64,8 +64,9 @@ const ChatView = () => {
     const response = await axios.post('http://localhost:5000', {
       prompt: cleanPrompt,
     });
+    console.log(response.data);
     const res = JSON.parse(response.data);
-    if (typeof res === string) {
+    if (typeof res === 'string') {
       updateMessage(res, true);
     } else {
       updateMessage('Please follow the steps on the Metamask extension', true);
@@ -99,6 +100,10 @@ const ChatView = () => {
           flow += `Step ${index + 1}: Get gas data for ${
             element.Args[0].Value
           } chain using Metamask Gas Api\n`;
+        } else if (element.tool === 'callContractFunction') {
+          flow += `Step ${index + 1}: Call ${element.Args[0].Value} function on ${
+            element.Args[1].Value
+          } contract\n`;
         }
       });
       updateMessage(flow, true);

@@ -1,0 +1,2 @@
+Token balances for wallet address 0xbF35B747A41f39Ad9BEc1DC84f2fEBd42c1d94e1:
+0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48: 3430000

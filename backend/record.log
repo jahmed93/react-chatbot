@@ -1,0 +1,92 @@
+INFO:werkzeug:127.0.0.1 - - [10/Dec/2023 00:46:09] "OPTIONS / HTTP/1.1" 200 -
+DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'You are an AI assistant at an organisation. that organisation has the following toolset at its disposal.Before any transaction always check the chain if chain is specified  and check the current balance [\n    {\n        "Tool": "sendTransaction",\n        "Description": "Send a particular amount to a particular address on the same chain",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "address",\n                "Description": "Address to send to",\n                "Type": "Address"\n            }\n        ]\n    },\n    {\n        "Tool": "changeChain",\n        "Description": "Change the chain that the node is connected to",\n        "Args": [\n            {\n                "Name": "chain",\n                "Description": "Chain to connect to",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Tool": "sendERC20Token",\n        "Description": "send an amount to an address on same chain if the token to be the sent is not the native token of the chain to be sent. The native token of ethereum is eth , polygon is matic",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "address",\n                "Description": "Address to send to",\n                "Type": "Address"\n            },\n            {\n                "Name": "tokenName",\n                "Description": "Name of the token to send",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Tool": "getBalance",\n        "Description": "get the balance of the current user to see if transaction is possible",\n        "Args": []\n    },\n    {\n        "Tool": "getChainId",\n        "Description": "get the current chain on which the user is present",\n        "Args": []\n    },\n    {\n        "Tool": "swapCurrency",\n        "Description": "Exchange one token for another different token",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "tokenName",\n                "Description": "Name of the token to send",\n                "Type": "String"\n            },\n            {\n                "Name": "tokenName2",\n                "Description": "Name of the token to exchange with",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Name": "callContractFunction",\n        "Description": "Call a contract function at a particular address with particular values of the same type as present in the function signature and return the function signature given in the prompt",\n        "Args": [\n            {\n                "Name": "contractAddress",\n                "Description": "contractAddress to call",\n                "Type": "string"\n            },\n            {\n                "Name": "contractfunction",\n                "Description": "The function signature",\n                "Type": "string"\n            },\n            {\n                "Name": "Values",\n                "Description": "Arguments for the function",\n                "Type": "Array"\n            },\n            {\n                "Name": "valueTypes",\n                "Description": "datatype of the arguments",\n                "Type": "Array"\n            }\n        ]\n    }\n] Return response like this only without any backticks and other verbose [{"Tool": "changeChain", "Args": [{"Name": "chain", "Value": "sepolia"}]}, {"Tool": "sendTransaction", "Args": [{"Name": "amount", "Value": 5}]}]'}, {'role': 'user', 'content': 'send 0.02 eth to 0x6c0E42B8c2bf1cEB7Cec1B147f676e455EA'}], 'model': 'gpt-4-1106-preview', 'frequency_penalty': 0, 'presence_penalty': 0, 'temperature': 0.1, 'top_p': 1}}
+DEBUG:httpcore.connection:close.started
+DEBUG:httpcore.connection:close.complete
+DEBUG:httpcore.connection:connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7fabbcbee680>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x7fabbc79cec0> server_hostname='api.openai.com' timeout=5.0
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7fabbcbee650>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 09 Dec 2023 19:16:13 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-allow-origin', b'*'), (b'Cache-Control', b'no-cache, must-revalidate'), (b'openai-model', b'gpt-4-1106-preview'), (b'openai-organization', b'devrev-6nmudu'), (b'openai-processing-ms', b'2501'), (b'openai-version', b'2020-10-01'), (b'strict-transport-security', b'max-age=15724800; includeSubDomains'), (b'x-ratelimit-limit-requests', b'500'), (b'x-ratelimit-limit-tokens', b'1500000'), (b'x-ratelimit-limit-tokens_usage_based', b'1500000'), (b'x-ratelimit-remaining-requests', b'499'), (b'x-ratelimit-remaining-tokens', b'1499030'), (b'x-ratelimit-remaining-tokens_usage_based', b'1499030'), (b'x-ratelimit-reset-requests', b'120ms'), (b'x-ratelimit-reset-tokens', b'55.872s'), (b'x-ratelimit-reset-tokens_usage_based', b'55.872s'), (b'x-request-id', b'03a61a697a1bfdf0e60ac247747f630d'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'832f94bfff913989-MAA'), (b'Content-Encoding', b'br'), (b'alt-svc', b'h3=":443"; ma=86400')])
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:openai._base_client:HTTP Request: POST https://api.openai.com/v1/chat/completions "200 OK"
+INFO:root:Prompt: send 0.02 eth to 0x6c0E42B8c2bf1cEB7Cec1B147f676e455EA
+INFO:root:Response: Before proceeding with the transaction, I will check the current chain and balance to ensure that the transaction is possible.
+
+[{"Tool": "getChainId", "Args": []}, {"Tool": "getBalance", "Args": []}]
+ERROR:app:Exception on / [POST]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ishan/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/ishan/react-chatbot/backend/app.py", line 115, in prompt
+    output = json.loads(response)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO:werkzeug:127.0.0.1 - - [10/Dec/2023 00:46:13] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [10/Dec/2023 00:50:11] "OPTIONS / HTTP/1.1" 200 -
+DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'You are an AI assistant at an organisation. that organisation has the following toolset at its disposal.Before any transaction always check the chain if chain is specified  and check the current balance [\n    {\n        "Tool": "sendTransaction",\n        "Description": "Send a particular amount to a particular address on the same chain",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "address",\n                "Description": "Address to send to",\n                "Type": "Address"\n            }\n        ]\n    },\n    {\n        "Tool": "changeChain",\n        "Description": "Change the chain that the node is connected to",\n        "Args": [\n            {\n                "Name": "chain",\n                "Description": "Chain to connect to",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Tool": "sendERC20Token",\n        "Description": "send an amount to an address on same chain if the token to be the sent is not the native token of the chain to be sent. The native token of ethereum is eth , polygon is matic",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "address",\n                "Description": "Address to send to",\n                "Type": "Address"\n            },\n            {\n                "Name": "tokenName",\n                "Description": "Name of the token to send",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Tool": "getBalance",\n        "Description": "get the balance of the current user to see if transaction is possible",\n        "Args": []\n    },\n    {\n        "Tool": "getChainId",\n        "Description": "get the current chain on which the user is present",\n        "Args": []\n    },\n    {\n        "Tool": "swapCurrency",\n        "Description": "Exchange one token for another different token",\n        "Args": [\n            {\n                "Name": "amount",\n                "Description": "Amount to send",\n                "Type": "Number"\n            },\n            {\n                "Name": "tokenName",\n                "Description": "Name of the token to send",\n                "Type": "String"\n            },\n            {\n                "Name": "tokenName2",\n                "Description": "Name of the token to exchange with",\n                "Type": "String"\n            }\n        ]\n    },\n    {\n        "Name": "callContractFunction",\n        "Description": "Call a contract function at a particular address with particular values of the same type as present in the function signature and return the function signature given in the prompt",\n        "Args": [\n            {\n                "Name": "contractAddress",\n                "Description": "contractAddress to call",\n                "Type": "string"\n            },\n            {\n                "Name": "contractfunction",\n                "Description": "The function signature",\n                "Type": "string"\n            },\n            {\n                "Name": "Values",\n                "Description": "Arguments for the function",\n                "Type": "Array"\n            },\n            {\n                "Name": "valueTypes",\n                "Description": "datatype of the arguments",\n                "Type": "Array"\n            }\n        ]\n    }\n] Return response like this only without any backticks and other verbose [{"Tool": "changeChain", "Args": [{"Name": "chain", "Value": "sepolia"}]}, {"Tool": "sendTransaction", "Args": [{"Name": "amount", "Value": 5}]}]'}, {'role': 'user', 'content': 'send 0.02 eth to 0x6c0E42B8c2bf1cEB7Cec1B147f676e455EA'}], 'model': 'gpt-4-1106-preview', 'frequency_penalty': 0, 'presence_penalty': 0, 'temperature': 0.1, 'top_p': 1}}
+DEBUG:httpcore.connection:close.started
+DEBUG:httpcore.connection:close.complete
+DEBUG:httpcore.connection:connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7fabbcbee800>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x7fabbc79cec0> server_hostname='api.openai.com' timeout=5.0
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7fabbcbeeb00>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 09 Dec 2023 19:20:16 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-allow-origin', b'*'), (b'Cache-Control', b'no-cache, must-revalidate'), (b'openai-model', b'gpt-4-1106-preview'), (b'openai-organization', b'devrev-6nmudu'), (b'openai-processing-ms', b'2894'), (b'openai-version', b'2020-10-01'), (b'strict-transport-security', b'max-age=15724800; includeSubDomains'), (b'x-ratelimit-limit-requests', b'500'), (b'x-ratelimit-limit-tokens', b'1500000'), (b'x-ratelimit-limit-tokens_usage_based', b'1500000'), (b'x-ratelimit-remaining-requests', b'499'), (b'x-ratelimit-remaining-tokens', b'1499030'), (b'x-ratelimit-remaining-tokens_usage_based', b'1499030'), (b'x-ratelimit-reset-requests', b'120ms'), (b'x-ratelimit-reset-tokens', b'55.872s'), (b'x-ratelimit-reset-tokens_usage_based', b'55.872s'), (b'x-request-id', b'a696c4f2343721c884a5862d0e217f4d'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'832f9aa7bb9bb2a3-MAA'), (b'Content-Encoding', b'br'), (b'alt-svc', b'h3=":443"; ma=86400')])
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:openai._base_client:HTTP Request: POST https://api.openai.com/v1/chat/completions "200 OK"
+INFO:root:Prompt: send 0.02 eth to 0x6c0E42B8c2bf1cEB7Cec1B147f676e455EA
+INFO:root:Response: Before proceeding with the transaction, I will check the current chain and balance to ensure that the transaction is possible.
+
+[{"Tool": "getChainId", "Args": []}, {"Tool": "getBalance", "Args": []}]
+ERROR:app:Exception on / [POST]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ishan/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/ishan/react-chatbot/backend/app.py", line 115, in prompt
+    output = json.loads(response)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO:werkzeug:127.0.0.1 - - [10/Dec/2023 00:50:16] "[35m[1mPOST / HTTP/1.1[0m" 500 -
