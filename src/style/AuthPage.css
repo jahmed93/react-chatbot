@@ -1,0 +1,57 @@
+.mainAuthPage {
+    background: url('../assets/auth.png') center/cover;
+    height: 100vh; /* 100% of the viewport height */
+    width: 100vw; /* 100% of the viewport width */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox to center content if needed */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.authPage {
+    width: 45vw; /* Set your desired fixed width */
+    padding: 20px; /* Optional: Add padding for better spacing */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    /* border: 1px solid #ccc; Optional: Add borders for visual separation */
+    height: 100vh;
+    overflow-wrap: break-word;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.displayAuth {
+    flex: 1;
+}
+
+.button {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 30px;
+    height: 5vh;
+    width: 150px;
+    border: 1px solid black; /* Adjust the width and style as needed */
+    background-color: hsl(210, 49%, 43%);
+    border-radius: 10px;
+    color: azure;
+}
+
+.inputContainer {
+    margin-bottom: 15px;
+  }
+  
+  .inputContainer label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .inputContainer input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
