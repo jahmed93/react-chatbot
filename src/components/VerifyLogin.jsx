@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import QrCodeGenerator from './QrCode';
+import { useNavigate } from 'react-router-dom';
 
 const VerifyLogin = ({ setUserID, setIsAuth }) => {
   const [qrCodeData, setQrCodeData] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const base_url = 'http://52.172.254.231:11000';
+  const Navigate = useNavigate();
   // const base_url = 'http://localhost:8080';
 
   useEffect(() => {
@@ -26,8 +28,11 @@ const VerifyLogin = ({ setUserID, setIsAuth }) => {
     // Query the backend to confirm verification
     // if (verified) {
     //     setUserID('something');
-    setIsAuth(true);
+    // setIsAuth(true);
+    localStorage.setItem('<userid>', true);
+    localStorage.setItem('user', '<userid>');
     console.log('Authenticated');
+    window.location.href = '/chat';
     // }
   };
 
