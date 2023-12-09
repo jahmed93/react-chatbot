@@ -15,5 +15,11 @@ export const price1inch = async (chain, tokens) => {
       addresses: tokenAddress,
     })
     .then((res) => res.data);
-  console.log('gasData:', priceData);
+  var response = '';
+  response += 'Chain Id: ' + chainId + '\n';
+  response += 'Prices for tokens: ' + '\n';
+  priceData.prices.map((x, i) => {
+    response += x.token + ': ' + x.price + '\n';
+  });
+  return response;
 };

@@ -1,5 +1,6 @@
 const { ethers } = require('ethers');
 export const callContractFunction = async (contractAddress, functionArgs, argsType, hash) => {
+  var response = '';
   var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
@@ -7,7 +8,6 @@ export const callContractFunction = async (contractAddress, functionArgs, argsTy
   Accounts = userAccounts;
   const data = ethers.utils.defaultAbiCoder.encode(argsType, functionArgs);
   const encodedData = hash + data.slice(2);
-  console.log(encodedData);
   if (Accounts.length === 0) {
     await getAccount();
   }
@@ -24,7 +24,9 @@ export const callContractFunction = async (contractAddress, functionArgs, argsTy
         },
       ],
     });
+    response = "Transaction Hash for function call"+txHash;
   }
+  return response;
 };
 
 const getAccount = async () => {

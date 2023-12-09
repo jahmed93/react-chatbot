@@ -27,7 +27,7 @@ export const sendTransaction = async (address, amount) => {
         },
       ],
     });
-    return txHash;
+    return "Transaction Hash: "+txHash;
   }
 };
 

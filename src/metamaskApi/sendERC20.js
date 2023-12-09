@@ -73,6 +73,7 @@ export const sendERC20Token = async (address, amount, tokenName) => {
         },
       ],
     });
+    return "Hash For ERC20 Token Transfer: " + txHash;
   }
 };
 

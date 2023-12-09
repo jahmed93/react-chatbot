@@ -8,7 +8,17 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import Modal from './Modal';
 import Setting from './Setting';
 import PromptPerfect from './PromptPerfect';
-import { transact } from '../metamaskApi/transact';
+
+
+import { changeChain } from '../metamaskApi/changeChain';
+import { sendTransaction } from '../metamaskApi/sendTransaction';
+import { sendERC20Token } from '../metamaskApi/sendERC20';
+import { swap } from '../metamaskApi/swap';
+import { gas1inch } from '../metamaskApi/gas1inch';
+import { balance1inch } from '../metamaskApi/getBalances';
+import { price1inch } from '../metamaskApi/price1inch';
+import { callContractFunction } from '../metamaskApi/callContractFunction';
+import { gasApi } from '../metamaskApi/gasApi';
 
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
@@ -45,7 +55,44 @@ const ChatView = () => {
     };
     addMessage(newMsg);
   };
-
+  var res;
+  const transact = async (object) => {
+    for (const element of object) {
+      if (element.Tool === 'changeChain') {
+        res=await changeChain(element.Args[0].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'sendTransaction') {
+        res=await sendTransaction(element.Args[1].Value, element.Args[0].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'sendERC20Token') {
+        res=await sendERC20Token(element.Args[1].Value, element.Args[0].Value, element.Args[2].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'swapCurrency') {
+        res=await swap(element.Args[0].Value, element.Args[1].Value, element.Args[2].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'getgasprice1inch') {
+        res=await gas1inch(element.Args[0].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'getBalance') {
+        res=await balance1inch();
+        updateMessage(res, true);
+      } else if (element.Tool === 'getprice') {
+        res=await price1inch(element.Args[0].Value, element.Args[1].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'getgaspriceMetamask') {
+        res=await gasApi(element.Args[0].Value);
+        updateMessage(res, true);
+      } else if (element.Tool === 'callContractFunction') {
+        res=await callContractFunction(
+          element.Args[0].Value,
+          element.Args[2].Value,
+          element.Args[3].Value,
+          element.Args[4].hash,
+        );
+        updateMessage(res, true);
+      }
+    }
+  };
   /**
    * Sends our prompt to our API and get response to our request from openai.
    *
@@ -96,7 +143,7 @@ const ChatView = () => {
           flow += `Step ${index + 1}: Get price for ${element.Args[1].Value.join(',')} on ${
             element.Args[0].Value
           } chain\n`;
-        } else if (element.Tool === 'gasApi') {
+        } else if (element.Tool === 'getgaspriceMetamask') {
           flow += `Step ${index + 1}: Get gas data for ${
             element.Args[0].Value
           } chain using Metamask Gas Api\n`;

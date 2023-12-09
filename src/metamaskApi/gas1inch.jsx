@@ -8,5 +8,5 @@ export const gas1inch = async (chain) => {
       chainId: parseInt(chainId.slice(2), 16),
     })
     .then((res) => res.data);
-  console.log('gasData:', gasData);
+    return `Gas price for ${chain} is ${gasData.gasPrice}`
 };

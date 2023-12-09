@@ -19,6 +19,7 @@ export const changeChain = async (chainName) => {
         },
       ],
     });
+    return "Change Chain Successfull";
   }
 };
 

@@ -17,6 +17,14 @@ export const balance1inch = async () => {
       walletAddress: account,
     },
   }).then((res) => res.data);
+  var response = '';
 
-  console.log('balanceData:', balanceData);
+  response += 'Wallet Address: ' + account + '\n';
+  response += 'Chain Id: ' + chainId + '\n';
+  response += 'Token Balances: ' + '\n';
+  balanceData.balances.map((x, i) => {
+    response += x.symbol + ': ' + x.balance + '\n';
+  })
+  
+  return response;
 };

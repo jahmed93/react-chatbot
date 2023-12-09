@@ -3,6 +3,7 @@ import { chainsfor1inch } from '../utils/maps';
 import axios from 'axios';
 
 export const swapUsing1inch = async (amount, token1, token2) => {
+  var response='';
   const chain = await window.ethereum.request({ method: 'eth_chainId' });
   const chainId = chainsfor1inch.get(chain).chainId;
   const srcAddress = getTokenAddress(chain, token1);
@@ -46,7 +47,7 @@ export const swapUsing1inch = async (amount, token1, token2) => {
     ],
   });
 
-  console.log('Approve txn Hash:', txnA);
+  response+='Approve txn Hash: '+txnA+"\n";
 
   const swapTxnBody = {
     chainId: chainId,
@@ -72,6 +73,7 @@ export const swapUsing1inch = async (amount, token1, token2) => {
       },
     ],
   });
+  response+='Swap txn Hash: '+txnS+"\n";
 
-  console.log('Swap txn Hash:', txnS);
+  return response;
 };

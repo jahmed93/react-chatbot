@@ -20,10 +20,6 @@ export const swapUsing1inchFusion = async (amount, token1, token2) => {
     }
   };
   connect();
-  // const blockchainProvider = new PrivateKeyProviderConnector(
-  //     makerPrivateKey,
-  //     new Web3(nodeUrl)
-  // )
 
   const inchsdk = new FusionSDK({
     url: 'https://api.1inch.dev/fusion',
