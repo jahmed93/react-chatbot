@@ -8,16 +8,21 @@ export const erc20AddressMap = new Map([
       uni: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
       link: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
     },
-    '0xaa36a7',
+  ],
+  [
+    '0x38',
     {
-      usdc: '0x8267cF9254734C6Eb452a7bb9AAF97B392258b21',
-      eth: '',
+      usdc: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+      wbnb: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+      oneinch: '0x111111111117dC0aa78b770fA6A738034120C302',
     },
   ],
 ]);
 // map of chain id to erc20 token address
 
 export const tokenDecimalMap = new Map([
+  ['wbnb', 18],
+  ['1inch', 18],
   ['eth', 18],
   ['usdc', 6],
   ['dai', 18],
@@ -27,6 +32,13 @@ export const tokenDecimalMap = new Map([
 // map of erc20tokenName to decimal
 
 export const chainMap = new Map([
+  ['linea', '0xe708'],
+  ['zkevm', '0x44d'],
+  ['bsc', '0x38'],
+  ['xdai', '0x64'],
+  ['polygon', '0x89'],
+  ['gnosis', '0x64'],
+  ['base', '0x2105'],
   ['ethereum_mainnet', '0x1'],
   ['sepolia', '0xaa36a7'],
   ['goerli', '0x5'],
@@ -36,6 +48,14 @@ export const chainMap = new Map([
 ]);
 
 export const chainsfor1inch = new Map([
+  [
+    '0x38',
+    {
+      name: 'BSC',
+      chainId: 56,
+      rpc: 'https://bsc-dataseed.binance.org',
+    },
+  ],
   [
     '0xe708',
     {

@@ -1,7 +1,8 @@
 import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
 import { toBase } from '../utils/index';
-import Web3 from 'web3';
 import { chainsfor1inch } from '../utils/maps';
+import axios from 'axios';
+import { keccak256, toUtf8Bytes, AbiCoder } from 'ethers';
 
 const getTokenAddress = (chain, token) => {
   switch (token) {
@@ -15,108 +16,84 @@ const getTokenAddress = (chain, token) => {
       return erc20AddressMap.get(chain).uni;
     case 'link':
       return erc20AddressMap.get(chain).link;
+    case 'wbnb':
+      return erc20AddressMap.get(chain).wbnb;
+    case '1inch':
+      return erc20AddressMap.get(chain).oneinch;
   }
 };
 
 export const swapUsing1inch = async (amount, token1, token2) => {
-  const chainId = await window.ethereum.request({
-    method: 'eth_chainId',
-    params: [],
-  });
-  var account;
-  const accounts = await window.ethereum.request({
-    method: 'eth_requestAccounts',
-    params: [],
-  });
-  account = accounts[0];
+  const baseAmount = toBase(amount, tokenDecimalMap.get(token1));
+  const chain = await window.ethereum.request({ method: 'eth_chainId' });
+  const chainId = chainsfor1inch.get(chain).chainId;
+  const srcAddress = getTokenAddress(chain, token1);
+  const dstAddress = getTokenAddress(chain, token2);
+  const rpcURL = chainsfor1inch.get(chain).rpc;
 
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  const walletAddress = accounts[0];
+  // console.log((parseInt(amount)*(10**18)).toString())
   const swapParams = {
-    src: getTokenAddress(chainId, token1),
-    dst: getTokenAddress(chainId, token2),
-    amount: toBase(amount, tokenDecimalMap.get(token1)),
-    from: account,
-    slippage: 1,
-    disableEstimate: false,
-    allowPartialFill: false,
+    src: srcAddress, // Token address of 1INCH
+    dst: dstAddress, // Token address of DAI
+    amount: (parseFloat(amount) * 10 ** 18).toString(), // Amount of 1INCH to swap (in wei)
+    from: walletAddress,
+    slippage: 1, // Maximum acceptable slippage percentage for the swap (e.g., 1 for 1%)
+    disableEstimate: false, // Set to true to disable estimation of swap details
+    allowPartialFill: false, // Set to true to allow partial filling of the swap order
   };
-
-  const broadcastApiUrl =
-    'https://api.1inch.dev/tx-gateway/v1.1/' + chainsfor1inch.get(chainId).chainId + '/broadcast';
-  const apiBaseUrl = 'https://api.1inch.dev/swap/v5.2/' + chainsfor1inch.get(chainId).chainId;
-  const web3 = new Web3(chainsfor1inch.get(chainId).rpc);
-  const header = new Headers();
-  header.append('Authorization', 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX');
-  header.append('Accept', 'application/json');
-  const reqinfo = {
-    headers: header,
+  const approveTxnBody = {
+    chainId: chainId,
+    web3RpcUrl: rpcURL,
+    tokenAddress: srcAddress,
+    walletAddress: walletAddress,
   };
+  const txnforApprove = await axios
+    .post('http://localhost:8181/buildApprovetxn', approveTxnBody)
+    .then((res) => res.data);
+  console.log('txnApprove:', txnforApprove);
 
-  // Construct full API request URL
-  function apiRequestUrl(methodName, queryParams) {
-    return apiBaseUrl + methodName + '?' + new URLSearchParams(queryParams).toString();
-  }
-  const headers2 = new Headers();
-  headers2.append('Content-Type', 'application/json');
-  headers2.append('Authorization', 'Bearer 5AsU5gLFkW6zKJX4iiDq4oowWh44BtsX');
-  // Post raw transaction to the API and return transaction hash
-  async function broadCastRawTransaction(rawTransaction) {
-    return fetch(broadcastApiUrl, {
-      method: 'post',
-      body: JSON.stringify({ rawTransaction }),
-      headers: headers2,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        return res.transactionHash;
-      });
-  }
+  const txnA = await window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+      {
+        data: txnforApprove.data,
+        gasPrice: parseInt(txnforApprove.gasPrice).toString(16),
+        to: txnforApprove.to,
+        from: walletAddress,
+        value: '0x0',
+        gasLimit: parseInt(txnforApprove.gasLimit).toString(16),
+      },
+    ],
+  });
 
-  // Sign and post a transaction, return its hash
-  async function signAndSendTransaction(transaction) {
-    const { rawTransaction } = await window.ethereum.request({
-      method: 'eth_signTransaction',
-      params: [transaction],
-    });
+  console.log('Approve txn Hash:', txnA);
 
-    return await broadCastRawTransaction(rawTransaction);
-  }
+  const swapTxnBody = {
+    chainId: chainId,
+    web3RpcUrl: rpcURL,
+    swapParams: swapParams,
+    walletAddress: walletAddress,
+  };
+  const { tx } = await axios
+    .post('http://localhost:8181/buildSwaptxn', swapTxnBody)
+    .then((res) => res.data);
+  console.log('txnSwap:', tx);
 
-  async function buildTxForApproveTradeWithRouter(tokenAddress, amount) {
-    const url = apiRequestUrl(
-      '/approve/transaction',
-      amount ? { tokenAddress, amount } : { tokenAddress },
-    );
-    const transaction = await fetch(url, reqinfo).then((res) => res.json());
+  const txnS = await window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+      {
+        data: tx.data,
+        gasPrice: parseInt(tx.gasPrice).toString(16),
+        to: tx.to,
+        from: walletAddress,
+        value: '0x0',
+        gasLimit: parseInt(tx.gasLimit).toString(16),
+      },
+    ],
+  });
 
-    const gasLimit = await web3.eth.estimateGas({
-      ...transaction,
-      from: account,
-    });
-
-    return {
-      ...transaction,
-      gas: gasLimit,
-    };
-  }
-
-  const transactionForSign = await buildTxForApproveTradeWithRouter(swapParams.src);
-  console.log('Transaction for approve: ', transactionForSign);
-
-  const approveTxHash = await signAndSendTransaction(transactionForSign);
-  console.log('Approve tx hash: ', approveTxHash);
-
-  async function buildTxForSwap(swapParams) {
-    const url = apiRequestUrl('/swap', swapParams);
-
-    // Fetch the swap transaction details from the API
-    return fetch(url, reqinfo)
-      .then((res) => res.json())
-      .then((res) => res.tx);
-  }
-
-  const swapTransaction = await buildTxForSwap(swapParams);
-  console.log('Transaction for swap: ', swapTransaction);
-
-  const swapTxHash = await signAndSendTransaction(swapTransaction);
-  console.log('Swap tx hash: ', swapTxHash);
+  console.log('Swap txn Hash:', txnS);
 };

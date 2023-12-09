@@ -12,11 +12,13 @@
     "url": "https://github.com/jahmed93"
   },
   "dependencies": {
+    "@ethereumjs/tx": "^5.1.0",
     "@metamask/detect-provider": "^2.0.0",
     "@metamask/sdk-react": "^0.14.1",
     "axios": "^1.6.2",
     "bad-words": "^3.0.4",
     "daisyui": "^2.51.6",
+    "ethereumjs-tx": "^2.1.2",
     "ethers": "^6.9.0",
     "moment": "^2.29.4",
     "node-fetch": "^3.3.2",
@@ -30,7 +32,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.16.1",
     "remark-gfm": "^3.0.1",
-    "web3": "^4.3.0"
+    "web3": "^4.3.0",
+    "web3-eth-accounts": "^4.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
