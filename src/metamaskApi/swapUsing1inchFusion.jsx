@@ -3,21 +3,6 @@ import { FusionSDK } from '@1inch/fusion-sdk';
 import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
 import { toBase } from '../utils/index';
 
-const getTokenAddress = (chain, token) => {
-  switch (token) {
-    case 'eth':
-      return erc20AddressMap.get(chain).eth;
-    case 'usdc':
-      return erc20AddressMap.get(chain).usdc;
-    case 'dai':
-      return erc20AddressMap.get(chain).dai;
-    case 'uni':
-      return erc20AddressMap.get(chain).uni;
-    case 'link':
-      return erc20AddressMap.get(chain).link;
-  }
-};
-
 export const swapUsing1inchFusion = async (amount, token1, token2) => {
   const sdk = new MetaMaskSDK();
   const provider = sdk.getProvider();

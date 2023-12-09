@@ -1,30 +1,8 @@
-import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
-import { toBase } from '../utils/index';
+import { getTokenAddress } from '../utils/index';
 import { chainsfor1inch } from '../utils/maps';
 import axios from 'axios';
-import { keccak256, toUtf8Bytes, AbiCoder } from 'ethers';
-
-const getTokenAddress = (chain, token) => {
-  switch (token) {
-    case 'eth':
-      return erc20AddressMap.get(chain).eth;
-    case 'usdc':
-      return erc20AddressMap.get(chain).usdc;
-    case 'dai':
-      return erc20AddressMap.get(chain).dai;
-    case 'uni':
-      return erc20AddressMap.get(chain).uni;
-    case 'link':
-      return erc20AddressMap.get(chain).link;
-    case 'wbnb':
-      return erc20AddressMap.get(chain).wbnb;
-    case '1inch':
-      return erc20AddressMap.get(chain).oneinch;
-  }
-};
 
 export const swapUsing1inch = async (amount, token1, token2) => {
-  const baseAmount = toBase(amount, tokenDecimalMap.get(token1));
   const chain = await window.ethereum.request({ method: 'eth_chainId' });
   const chainId = chainsfor1inch.get(chain).chainId;
   const srcAddress = getTokenAddress(chain, token1);
