@@ -48,15 +48,20 @@ const SideBar = () => {
           )}
         </div>
       </div>
-      <div className="nav">
+      <div
+        className="nav"
+        style={{
+          marginBottom: '1px',
+        }}
+      >
         <span
           className="border nav__item border-neutral-600 flex items-center justify-center"
           onClick={clearChat}
         >
-          <div className="nav__icons flex items-center justify-center">
+          {/* <div className="nav__icons flex items-center justify-center">
             <MdAdd />
-          </div>
-          <h1 className={`${!open && 'hidden'}`}>New chat</h1>
+          </div> */}
+          <h1 className={`${!open && 'hidden'}`}>Clear Chat</h1>
         </span>
       </div>
 
@@ -66,7 +71,7 @@ const SideBar = () => {
             <div className="nav__icons">
               <MdOutlineSettings />
             </div>
-            <h1 className={`${!open && 'hidden'}`}>Settings</h1>
+            <h1 className={`${!open && 'hidden'}`}>MeataMask Wallet Details</h1>
           </span>
         </div>
       </div>
