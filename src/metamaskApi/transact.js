@@ -22,6 +22,8 @@ export const transact = async (object) => {
       await balance1inch();
     } else if (element.Tool === 'price1inch') {
       await price1inch(element.Args[0].Value, element.Args[1].Value);
+    } else if (element.Tool === 'gasApi') {
+      await gasApi(element.Args[0].Value);
     }
   }
 };
