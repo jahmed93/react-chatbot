@@ -1,72 +1,71 @@
 import React from 'react';
 import { useState } from 'react';
 import '../style/AuthPage.css';
-import SignupComponent from '../components/SignUpForm';
+import SignupComponent from '../components/SignupComponent';
 import VerifyLogin from '../components/VerifyLogin';
 
-const AuthPage = ({ isAuth, setIsAuth }) => {
-  const [showSignupPopup, setShowSignupPopup] = useState(false);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
+const AuthPage = ({ isAuth, setIsAuth, userID, setUserID }) => {
+  const [isSignup, setIsSignup] = useState(false);
+  const [isVerify, setIsVerify] = useState(false);
 
   const openSignupPopup = () => {
-    setShowSignupPopup(true);
-    setShowLoginPopup(false);
-  };
-
-  const closeSignupPopup = () => {
-    setShowSignupPopup(false);
-    setShowLoginPopup(false);
+    setIsVerify(false);
+    setIsSignup(true);
   };
 
   const openLoginPopup = () => {
-    setShowLoginPopup(true);
-    setShowSignupPopup(false);
-  };
-
-  const closeLoginPopup = () => {
-    setShowLoginPopup(false);
-    setShowSignupPopup(false);
+    setIsVerify(true);
+    setIsSignup(false);
   };
 
   return (
-    <>
-      <div className="mainAuthPage">
-        <div className="authPageImage"></div>
+    <div className="mainAuthPage">
+      <div className="authPage">
+        {!isSignup && !isVerify && (
+          <div
+            className="Welcome"
+            style={{
+              alignContent: 'center',
+              textAlign: 'center',
+            }}
+          >
+            <span
+              className="WelcomeText"
+              style={{
+                fontSize: '40px',
+                color: 'floralwhite',
+              }}
+            >
+              <b>Welcome to Hermes!</b>
+            </span>
+            <br></br>
+            <span className="Description" style={{ fontSize: '23px', color: 'floralwhite' }}>
+              Ethereum Chat Bot to interact with the chain just by prompts
+            </span>
+            <br></br>
+            <span style={{ color: 'floralwhite' }}>
+              <b>Please Authenticate yourself with PolygonID mobile Wallet</b>
+            </span>
+            <br></br>
 
-        <div className="authPageForm">
-          {!showLoginPopup && !showSignupPopup && (
-            <div>
-              <button className="signupButton" onClick={openSignupPopup}>
-                Sign Up
-              </button>
-              <button className="loginButton" onClick={openLoginPopup}>
-                Login
-              </button>
-            </div>
-          )}
+            <button className="button" onClick={openSignupPopup}>
+              Get Credentials
+            </button>
+            <button className="button" onClick={openLoginPopup}>
+              Verify
+            </button>
+          </div>
+        )}
 
-          {showSignupPopup && (
-            <div className="popup">
-              {/* Signup form content start */}
+        {isSignup && !isVerify && (
+          <SignupComponent setIsSignup={setIsSignup} setIsVerify={setIsVerify} />
+        )}
 
-              <SignupComponent closeSignupPopup={closeSignupPopup} />
-
-              {/* Signup form content end */}
-            </div>
-          )}
-
-          {showLoginPopup && (
-            <div className="popup">
-              {/* Login form content */}
-
-              <VerifyLogin closeLoginPopup={closeLoginPopup} />
-
-              {/* Login form content end */}
-            </div>
-          )}
-        </div>
+        {!isSignup && isVerify && <VerifyLogin setIsAuth={setIsAuth} setUserID={setUserID} />}
       </div>
-    </>
+
+      <div className="displayAuth"></div>
+    </div>
   );
 };
 

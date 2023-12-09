@@ -1,21 +1,26 @@
-import { getChainId } from '../utils/index';
-var Accounts = [];
-export const changeChain = async (chainName) => {
+const { ethers } = require('ethers');
+export const callContractFunction = async (contractAddress, functionArgs, argsType, hash) => {
+  var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-
   Accounts = userAccounts;
-
+  const data = ethers.utils.defaultAbiCoder.encode(argsType, functionArgs);
+  const encodedData = hash + data.slice(2);
+  console.log(encodedData);
   if (Accounts.length === 0) {
     await getAccount();
   }
   if (Accounts.length > 0) {
     const txHash = await window.ethereum.request({
-      method: 'wallet_switchEthereumChain',
+      method: 'eth_sendTransaction',
       params: [
         {
-          chainId: getChainId(chainName.toLowerCase()),
+          from: Accounts[0],
+          to: contractAddress,
+          value: 0,
+          gasLimit: '0xffffffff',
+          data: encodedData,
         },
       ],
     });

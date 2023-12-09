@@ -3,23 +3,22 @@ import { ChatContextProvider } from './context/chatContext';
 import SideBar from './components/SideBar';
 import ChatView from './components/ChatView';
 import { useState } from 'react';
-import Modal from './components/Modal';
 import Setting from './components/Setting';
 import AuthPage from './pages/AuthPage';
+import Modal from './components/Modal';
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [userID, setUserID] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
 
   return (
     <>
       {!isAuth ? (
-        <>
-          <AuthPage isAuth={isAuth} setIsAuth={setIsAuth} />
-        </>
+        <AuthPage isAuth={isAuth} setIsAuth={setIsAuth} userID={userID} setUserID={setUserID} />
       ) : (
         <ChatContextProvider>
-          <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
+          <Modal title="Metamask Details" modalOpen={modalOpen} setModalOpen={setModalOpen}>
             <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
           </Modal>
           <div className="flex transition duration-500 ease-in-out">

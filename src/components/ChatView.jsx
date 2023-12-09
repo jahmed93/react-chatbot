@@ -9,6 +9,7 @@ import Modal from './Modal';
 import Setting from './Setting';
 import PromptPerfect from './PromptPerfect';
 import { transact } from '../metamaskApi/transact';
+
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
  */
@@ -63,7 +64,55 @@ const ChatView = () => {
     const response = await axios.post('http://localhost:5000', {
       prompt: cleanPrompt,
     });
-    transact(JSON.parse(response.data));
+    console.log(response.data);
+    const res = JSON.parse(response.data);
+    if (typeof res === 'string') {
+      updateMessage(res, true);
+    } else {
+      updateMessage('Please follow the steps on the Metamask extension', true);
+      var flow = '';
+      res.map((element, index) => {
+        if (element.Tool === 'changeChain') {
+          flow += `Step ${index + 1}: Change chain to ${element.Args[0].Value}\n`;
+        } else if (element.Tool === 'sendTransaction') {
+          flow += `Step ${index + 1}: Send ${element.Args[0].Value}wei to ${
+            element.Args[1].Value
+          }\n`;
+        } else if (element.Tool === 'sendERC20Token') {
+          flow += `Step ${index + 1}: Send ${element.Args[0].Value} ${element.Args[2].Value} to ${
+            element.Args[1].Value
+          }\n`;
+        } else if (element.Tool === 'swapUsing1inch') {
+          flow += `Step ${index + 1}: Swap ${element.Args[0].Value} ${element.Args[1].Value} to ${
+            element.Args[2].Value
+          } using 1inch\n`;
+        } else if (element.Tool === 'gas1inch') {
+          flow += `Step ${index + 1}: Get gas price for ${
+            element.Args[0].Value
+          } chain using 1inch Gas Price Api\n`;
+        } else if (element.Tool === 'balance1inch') {
+          flow += `Step ${index + 1}: Get balance for ${element.Args[0].Value} chain using \n`;
+        } else if (element.Tool === 'price1inch') {
+          flow += `Step ${index + 1}: Get price for ${element.Args[1].Value.join(',')} on ${
+            element.Args[0].Value
+          } chain\n`;
+        } else if (element.Tool === 'gasApi') {
+          flow += `Step ${index + 1}: Get gas data for ${
+            element.Args[0].Value
+          } chain using Metamask Gas Api\n`;
+        } else if (element.tool === 'callContractFunction') {
+          flow += `Step ${index + 1}: Call ${element.Args[0].Value} function on ${
+            element.Args[1].Value
+          } contract\n`;
+        }
+      });
+      updateMessage(flow, true);
+      transact(res);
+    }
+    // swapUsing1inch('0.00005', '1inch', 'usdc');
+    // gas1inch('bsc');
+    // price1inch('bsc', ['usdc', '1inch', 'wbnb']);
+    // balance1inch();
   };
 
   const handleKeyDown = (e) => {
@@ -176,7 +225,7 @@ const ChatView = () => {
           content="Help me with this prompt!"
         />
       </form>
-      <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <Modal title="Metamask Details" modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
       </Modal>
       <Modal title="Prompt Perfect" modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>

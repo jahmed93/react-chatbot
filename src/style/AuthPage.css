@@ -1,119 +1,57 @@
 .mainAuthPage {
-    display: flex;
-    height: 100vh; /* Set the height of the container to 100% of the viewport height */
+    background: url('../assets/auth.png') center/cover;
+    height: 100vh; /* 100% of the viewport height */
+    width: 100vw; /* 100% of the viewport width */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox to center content if needed */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
 }
 
-.authPageImage,
-.authPageForm {
+.authPage {
+    width: 45vw; /* Set your desired fixed width */
     padding: 20px; /* Optional: Add padding for better spacing */
     box-sizing: border-box; /* Include padding in the element's total width and height */
-    border: 1px solid #ccc; /* Optional: Add borders for visual separation */
-}
+    /* border: 1px solid #ccc; Optional: Add borders for visual separation */
+    height: 100vh;
+    overflow-wrap: break-word;
 
-.authPageImage {
-    flex: 70%; /* Set the width of the image section */
-    background: url('../assets/authPageBackground.jpg') center/cover;
-}
-
-.authPageForm {
-    flex: 30%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    background-color: #ffffff;
+    align-items: center;
+
 }
 
-.signupButton,
-.loginButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: darkcyan;
-    color: #ffffff;
+.displayAuth {
+    flex: 1;
 }
 
-.closeButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: darkcyan;
-    color: #ffffff;
-}
-
-.authPageForm {
-  display: flex;
-  height: 100vh;
-}
-
-.signupForm {
-  background-color: #ffffff;
-  border-radius: 10px; /* Set curved boundaries */
-  padding: 20px;
-  box-sizing: border-box;
-  width: 300px; /* Set width based on your design */
-  margin: auto; /* Center the form horizontally */
+.button {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 30px;
+    height: 5vh;
+    width: 150px;
+    border: 1px solid black; /* Adjust the width and style as needed */
+    background-color: hsl(210, 49%, 43%);
+    border-radius: 10px;
+    color: azure;
 }
 
 .inputContainer {
-  margin-bottom: 15px;
-}
-
-.inputContainer label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.inputContainer input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.buttonContainer {
-  text-align: center;
-}
-
-.buttonContainer button {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding-top: 10px;
-  margin-top: 10px;
-}
-
-.buttonContainer button:hover {
-  background-color: #45a049;
-}
-
-.popup {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-content: space-evenly;
-}
-
-.qrcontainer {
-  width: 30vw;
-  height: 30vw;
-}
-
-#button {
-  margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: darkcyan;
-    color: #ffffff;
-}
+    margin-bottom: 15px;
+  }
+  
+  .inputContainer label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .inputContainer input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

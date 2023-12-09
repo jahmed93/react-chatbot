@@ -18,7 +18,7 @@ const ChatMessage = (props) => {
   return (
     <div>
       {ai ? (
-        <div key={id} className={`flex-row-reverse messageai px-10`}>
+        <div key={id} className={`flex-row-reverse messageai px-10 rounded-lg my-1`}>
           <div className="message__wrapper">
             <ReactMarkdown
               className={'message__markdown text-left'}
@@ -57,10 +57,13 @@ const ChatMessage = (props) => {
           </div>
         </div>
       ) : (
-        <div key={id} className={`flex-row-reverse message px-10`}>
+        <div
+          key={id}
+          className={`flex items-start message px-10 rounded-lg padding my-1 justify-end justify-content: flex-end`}
+        >
           <div className="message__wrapper">
             <ReactMarkdown
-              className={'message__markdown text-left'}
+              className={'message__markdown text-right'}
               remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
               components={{
                 code({ node, inline, className, children, ...props }) {
@@ -80,12 +83,12 @@ const ChatMessage = (props) => {
               {text}
             </ReactMarkdown>
 
-            <div className="text-left message__createdAt">{moment(createdAt).calendar()}</div>
+            <div className="text-right message__createdAt">{moment(createdAt).calendar()}</div>
           </div>
 
-          <div className="message__pic">
+          <div className="message__pic text-right">
             <div className="avatar">
-              <div className="w-8 border rounded-full">
+              <div className="w-8 border rounded-full text-right">
                 {ai ? (
                   <img width="30" src={logo} alt="Logo" />
                 ) : (

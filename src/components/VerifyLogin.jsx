@@ -1,15 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import '../style/AuthPage.css';
-import { QRCode } from 'react-qr-svg';
+import QrCodeGenerator from './QrCode';
 
-const VerifyLogin = ({ closeLoginPopup }) => {
+const VerifyLogin = ({ setUserID, setIsAuth }) => {
   const [qrCodeData, setQrCodeData] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const base_url = 'http://52.172.254.231:11000';
   // const base_url = 'http://localhost:8080';
 
-  const handleButtonClick = () => {
+  useEffect(() => {
     setIsButtonDisabled(true);
     fetch(base_url + '/api/sign-in')
       .then((response) =>
@@ -21,34 +20,48 @@ const VerifyLogin = ({ closeLoginPopup }) => {
       })
       .catch((error) => console.log(error))
       .finally(() => setIsButtonDisabled(false));
+  }, []);
+
+  const checkVerificationStatus = () => {
+    // Query the backend to confirm verification
+    // if (verified) {
+    //     setUserID('something');
+    setIsAuth(true);
+    console.log('Authenticated');
+    // }
   };
+
   return (
     <>
-      <div className="VerifyQR">
-        <button
-          className={`btn-qr ${isButtonDisabled ? 'disabled' : ''}`}
-          id="button"
-          onClick={handleButtonClick}
+      <div
+        className="VerifyMain"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          className="QrContainer"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
         >
-          Generate QR Code
-        </button>
+          <QrCodeGenerator jsonData={qrCodeData} />
+        </div>
 
-        {qrCodeData && (
-          <div style={{ display: 'block' }}>
-            <QRCode
-              value={JSON.stringify(qrCodeData)}
-              size={450}
-              bgColor="#e9e9e9"
-              fgColor="#000"
-              level="L"
-            />
-          </div>
-        )}
+        <div>
+          <br></br>
+          <button className="button" onClick={checkVerificationStatus}>
+            Wallet Verified ID
+          </button>
+        </div>
       </div>
-
-      <button className="closeButton" onClick={closeLoginPopup}>
-        Close Login
-      </button>
     </>
   );
 };

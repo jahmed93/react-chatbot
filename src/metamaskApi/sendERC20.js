@@ -1,27 +1,9 @@
 import { ethers } from 'ethers';
-const { utils } = ethers;
+import { erc20AddressMap, tokenDecimalMap } from '../utils/maps';
+import { toBase } from '../utils/index';
+import detectEthereumProvider from '@metamask/detect-provider';
 
-const erc20AddressMap = new Map([
-  [
-    '0x1',
-    {
-      usdc: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-      dai: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-      uni: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
-      link: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
-    },
-  ],
-]);
-// map of chain id to erc20 token address
-
-const tokenDecimalMap = new Map([
-  ['usdc', 6],
-  ['dai', 18],
-  ['uni', 18],
-  ['link', 18],
-]);
-// map of erc20tokenName to decimal
-
+var Accounts = [];
 const getDataField = async (address, amount, tokenAddress, tokenName) => {
   const USDC_ABI = [
     {
@@ -43,7 +25,7 @@ const getDataField = async (address, amount, tokenAddress, tokenName) => {
 
   const usdcContract = new ethers.Contract(tokenAddress, USDC_ABI, signer);
 
-  const amountInUSDC = utils.parseUnits(amount, tokenDecimalMap.get(tokenName.toLowerCase()));
+  const amountInUSDC = toBase(amount, tokenDecimalMap.get(tokenName.toLowerCase()));
 
   const dataFieldValue = usdcContract.interface.encodeFunctionData('transfer', [
     address,
@@ -58,7 +40,6 @@ export const sendERC20Token = async (address, amount, tokenName) => {
     method: 'eth_chainId',
     params: [],
   });
-  var Accounts = [];
   const userAccounts = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
