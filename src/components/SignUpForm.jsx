@@ -64,7 +64,7 @@ const SignupComponent = ({ closeSignupPopup }) => {
           credentialSchema: credentialSchema,
           type: 'adharkyc',
           credentialSubject: {
-            id: identifier,
+            // id: identifier,
             AdharNo: adharNo,
           },
           expiration: '2024-12-10T05:02:26.416Z',

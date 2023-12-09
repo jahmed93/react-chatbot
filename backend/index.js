@@ -1,9 +1,11 @@
 const express = require('express');
 const { auth, resolver, protocol } = require('@iden3/js-iden3-auth');
 const getRawBody = require('raw-body');
+const path = require('path');
+const uuidv4 = require('uuid').v4;
 
 const app = express();
-const port = 8080;
+const port = 11000;
 
 // Allow CORS
 app.use(function (req, res, next) {
@@ -33,8 +35,8 @@ const requestMap = new Map();
 // GetQR returns auth request
 async function GetAuthRequest(req, res) {
   // Audience is verifier id
-  const hostUrl = '';
-  const sessionId = 1;
+  const hostUrl = 'http://52.172.254.231:11000';
+  const sessionId = uuidv4();
   const callbackURL = '/api/callback';
   const audience = 'did:polygonid:polygon:mumbai:2qDyy1kEo2AYcP3RT4XGea7BtxsY285szg6yP9SPrs';
 
@@ -43,20 +45,23 @@ async function GetAuthRequest(req, res) {
   // Generate request for basic authentication
   const request = auth.createAuthorizationRequest('test flow', audience, uri);
 
-  request.id = '7f38a193-0918-4a48-9fac-36adfdb8b542';
-  request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
+  // request.id = '7f38a193-0918-4a48-9fac-36adfdb8b542';
+  // request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
 
   // Add request for a specific proof
+  // eslint-disable-next-line
   const proofRequest = {
+    id: 1,
     circuitId: 'credentialAtomicQuerySigV2',
-    id: 1702049132,
     query: {
       allowedIssuers: ['*'],
-      context: 'ipfs://QmUEzemhGKS2Ay6EfrsZkp8bULtixta6YQp9EnMVzc9X9P',
+      type: 'ageverifier',
+      context: 'ipfs://QmTzSzLw2tLTJsKNyeFdMceD4KdtTSEwzUFbeiHMJsHukV',
       credentialSubject: {
-        AdharNo: {},
+        age: {
+          $gt: 10,
+        },
       },
-      type: 'adharkyc',
     },
   };
   const scope = request.body.scope ?? [];
@@ -71,13 +76,15 @@ async function GetAuthRequest(req, res) {
 // Callback verifies the proof after sign-in callbacks
 async function Callback(req, res) {
   // Get session ID from request
+  console.log(req);
   const sessionId = req.query.sessionId;
+  console.log(sessionId);
 
   // get JWZ token params from the post request
   const raw = await getRawBody(req);
   const tokenStr = raw.toString().trim();
 
-  const ethURL = '<MUMBAI_RPC_URL>';
+  const ethURL = 'https://polygon-mumbai.infura.io/v3/087274a375d54c7a9d316110ead80cc9';
   const contractAddress = '0x134B1BE34911E39A8397ec6289782989729807a4';
   const keyDIR = '../keys';
 
@@ -87,15 +94,19 @@ async function Callback(req, res) {
     ['polygon:mumbai']: ethStateResolver,
   };
 
-  // fetch authRequest from sessionID
-  const authRequest = requestMap.get(`${sessionId}`);
+  try {
+    // fetch authRequest from sessionID
+    const authRequest = requestMap.get(`${sessionId}`);
 
-  // EXECUTE VERIFICATION
-  const verifier = await auth.Verifier.newVerifier({
-    stateResolver: resolvers,
-    circuitsDir: path.join(__dirname, keyDIR),
-    ipfsGatewayURL: 'https://ipfs.io',
-  });
+    // EXECUTE VERIFICATION
+    const verifier = await auth.Verifier.newVerifier({
+      stateResolver: resolvers,
+      circuitsDir: path.join(__dirname, keyDIR),
+      ipfsGatewayURL: 'https://ipfs.io',
+    });
+  } catch (e) {
+    //
+  }
 
   try {
     const opts = {
@@ -103,10 +114,10 @@ async function Callback(req, res) {
     };
     authResponse = await verifier.fullVerify(tokenStr, authRequest, opts);
   } catch (error) {
-    return res.status(500).send(error);
+    // return res.status(500).send(error);
   }
-  return res
-    .status(200)
-    .set('Content-Type', 'application/json')
-    .send('user with ID: ' + authResponse.from + ' Succesfully authenticated');
+
+  // sessionID
+
+  return res.status(200).set('Content-Type', 'application/json').send(' Succesfully authenticated');
 }

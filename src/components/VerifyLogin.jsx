@@ -6,7 +6,8 @@ import { QRCode } from 'react-qr-svg';
 const VerifyLogin = ({ closeLoginPopup }) => {
   const [qrCodeData, setQrCodeData] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const base_url = 'http://localhost:8080';
+  const base_url = 'http://52.172.254.231:11000';
+  // const base_url = 'http://localhost:8080';
 
   const handleButtonClick = () => {
     setIsButtonDisabled(true);

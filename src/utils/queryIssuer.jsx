@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3002', // from env in future
+  baseURL: 'http://52.172.254.231:13002/', // from env in future
   timeout: 5000,
   headers: {
     accept: 'application/json', // take from env in future
