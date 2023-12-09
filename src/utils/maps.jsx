@@ -53,6 +53,9 @@ export const chainsfor1inch = new Map([
   [
     '0x38',
     {
+      wrappedAddress: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+      native: 'bnb',
+      wrapped: 'wbnb',
       name: 'BSC',
       chainId: 56,
       rpc: 'https://bsc-dataseed.binance.org',
@@ -61,55 +64,42 @@ export const chainsfor1inch = new Map([
   [
     '0xe708',
     {
+      wrappedAddress: '0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f',
+      wrapped: 'weth',
+      native: 'eth',
       name: 'Linea',
       chainId: 59144,
       rpc: 'https://linea.drpc.org',
     },
   ],
-
-  [
-    '0x44d',
-    {
-      name: 'ZKEVM',
-      chainId: 1101,
-      rpc: 'https://polygon-zkevm.drpc.org',
-    },
-  ],
   [
     '0x1',
     {
+      wrappedAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      wrapped: 'weth',
+      native: 'eth',
       name: 'Ethereum',
       chainId: 1,
       rpc: 'https://eth.llamarpc.com',
     },
   ],
   [
-    '0xaa36a7',
-    {
-      name: 'Sepolia',
-      chainId: 11155111,
-      rpc: 'https://1rpc.io/sepolia',
-    },
-  ],
-  [
     '0xa4b1',
     {
+      wrappedAddress: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
+      wrapped: 'weth',
+      native: 'eth',
       name: 'Arbitrum',
       chainId: 42161,
       rpc: 'https://1rpc.io/arb',
     },
   ],
   [
-    '0x8274f',
-    {
-      name: 'Scroll Sepolia',
-      chainId: 534351,
-      rpc: 'https://sepolia-rpc.scroll.io',
-    },
-  ],
-  [
     '0x1388',
     {
+      wrappedAddress: '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8',
+      wrapped: 'wmnt',
+      native: 'mnt',
       name: 'Mantle',
       chainId: 5000,
       rpc: 'https://1rpc.io/mantle',
@@ -118,6 +108,9 @@ export const chainsfor1inch = new Map([
   [
     '0x2105',
     {
+      wrappedAddress: '0x4200000000000000000000000000000000000006',
+      wrapped: 'weth',
+      native: 'eth',
       name: 'BASE',
       chainId: 8453,
       rpc: 'https://base.llamarpc.com',
@@ -126,6 +119,9 @@ export const chainsfor1inch = new Map([
   [
     '0x32',
     {
+      wrappedAddress: 'xdc8A3cc832Bb6B255622E92dc9d4611F2A94d200DA',
+      wrapped: 'wxdc',
+      native: 'xdc',
       name: 'XDC Network',
       chainId: 50,
       rpc: 'https://rpc.ankr.com/xdc',
@@ -135,6 +131,9 @@ export const chainsfor1inch = new Map([
   [
     '0x89',
     {
+      wrappedAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
+      wrapped: 'wmatic',
+      native: 'matic',
       name: 'Polygon',
       chainId: 137,
       rpc: 'https://polygon-rpc.com',
@@ -143,6 +142,9 @@ export const chainsfor1inch = new Map([
   [
     '0x64',
     {
+      wrappedAddress: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
+      wrapped: 'wxdai',
+      native: 'xdai',
       name: 'Gnosis Chain',
       chainId: 100,
       rpc: 'https://gnosis.drpc.org',

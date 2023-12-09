@@ -11,19 +11,23 @@ export const sendTransaction = async (address, amount) => {
     await getAccount();
   }
   if (Accounts.length > 0) {
+    const gasLimit = await window.ethereum.request({
+      method: 'eth_gasPrice',
+      params: [],
+    });
+    console.log(parseInt(gasLimit.slice(2), 16));
     const txHash = await window.ethereum.request({
       method: 'eth_sendTransaction',
       params: [
         {
           from: Accounts[0],
-          to: address,
+          to: address.toLowerCase(),
           value: hexNum(amount),
-          gasLimit: '0x5028',
-          maxPriorityFeePerGas: '0x3b9aca00',
-          maxFeePerGas: '0x2540be400',
+          gasPrice: gasLimit,
         },
       ],
     });
+    return txHash;
   }
 };
 
