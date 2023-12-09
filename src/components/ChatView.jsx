@@ -220,7 +220,7 @@ const ChatView = () => {
           content="Help me with this prompt!"
         />
       </form>
-      <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <Modal title="Metamask Details" modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
       </Modal>
       <Modal title="Prompt Perfect" modalOpen={modalPromptOpen} setModalOpen={setModalPromptOpen}>

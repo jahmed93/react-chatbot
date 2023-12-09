@@ -82,8 +82,17 @@ const Setting = () => {
             balance={wallet.balance}
             chainId={wallet.chainId}
           />
-          <div> Wallet Connected </div>
-          <button onClick={handleLogout}>Logout</button>
+          <center>
+            <div> Wallet Connected </div>
+          </center>
+          <center>
+            <button
+              onClick={handleLogout}
+              className="text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"
+            >
+              Logout
+            </button>
+          </center>
         </div>
       )}
     </form>
