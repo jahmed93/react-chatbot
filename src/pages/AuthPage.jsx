@@ -61,7 +61,9 @@ const AuthPage = ({ isAuth, setIsAuth, userID, setUserID }) => {
           <SignupComponent setIsSignup={setIsSignup} setIsVerify={setIsVerify} />
         )}
 
-        {!isSignup && isVerify && <VerifyLogin setIsAuth={setIsAuth} setUserID={setUserID} />}
+        {!isSignup && isVerify && (
+          <VerifyLogin setIsAuth={setIsAuth} setUserID={setUserID} userID={userID} />
+        )}
       </div>
 
       <div className="displayAuth"></div>

@@ -29,10 +29,7 @@
     "react-ga4": "^2.1.0",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
-<<<<<<< HEAD
     "react-qr-code": "^2.0.12",
-=======
->>>>>>> master
     "react-qr-svg": "^2.4.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",

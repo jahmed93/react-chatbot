@@ -5,7 +5,7 @@ const path = require('path');
 const uuidv4 = require('uuid').v4;
 
 const app = express();
-const port = 11000;
+const port = 8080;
 
 // Allow CORS
 app.use(function (req, res, next) {
@@ -25,12 +25,25 @@ app.post('/api/callback', (req, res) => {
   Callback(req, res);
 });
 
+app.get('/api/verified', (req, res) => {
+  console.log('verified');
+  const sessionId = req.query.sessionId;
+  console.log(sessionId);
+  if (verifierList.includes(sessionId)) {
+    return res.status(200).set('Content-Type', 'application/json').send({ verified: true });
+  }
+  return res.status(200).set('Content-Type', 'application/json').send({ verified: false });
+});
+
 app.listen(port, () => {
   console.log('server running on port 8080');
 });
 
 // Create a map to store the auth requests and their session IDs
 const requestMap = new Map();
+
+// Create list that stores verifier IDs
+const verifierList = [];
 
 // GetQR returns auth request
 async function GetAuthRequest(req, res) {
@@ -49,18 +62,17 @@ async function GetAuthRequest(req, res) {
   // request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
 
   // Add request for a specific proof
-  // eslint-disable-next-line
   const proofRequest = {
     id: 1,
     circuitId: 'credentialAtomicQuerySigV2',
     query: {
       allowedIssuers: ['*'],
-      type: 'ageverifier',
-      context: 'ipfs://QmTzSzLw2tLTJsKNyeFdMceD4KdtTSEwzUFbeiHMJsHukV',
+      type: 'adharkyc',
+      context: 'ipfs://QmUEzemhGKS2Ay6EfrsZkp8bULtixta6YQp9EnMVzc9X9P',
       credentialSubject: {
-        age: {
-          $gt: 10,
-        },
+        // age: {
+        //   $gt: 10,
+        // }
       },
     },
   };
@@ -70,7 +82,12 @@ async function GetAuthRequest(req, res) {
   // Store auth request in map associated with session ID
   requestMap.set(`${sessionId}`, request);
 
-  return res.status(200).set('Content-Type', 'application/json').send(request);
+  // return res.status(200).set('Content-Type', 'application/json').send(request);
+
+  return res
+    .status(200)
+    .set('Content-Type', 'application/json')
+    .send({ request: request, sessionId: sessionId });
 }
 
 // Callback verifies the proof after sign-in callbacks
@@ -118,6 +135,8 @@ async function Callback(req, res) {
   }
 
   // sessionID
+  console.log(sessionId);
+  verifierList.push(sessionId);
 
   return res.status(200).set('Content-Type', 'application/json').send(' Succesfully authenticated');
 }
